@@ -26,7 +26,7 @@ const User = sequelizer.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("admin", "organizer", "attendee"),
+      type: DataTypes.ENUM("admin", "user"),
       allowNull: false,
     },
     created_at: {
