@@ -9,8 +9,16 @@ const User = sequelizer.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    gender: {
+      type: DataTypes.ENUM("male", "female", "prefer_not_to_say"),
       allowNull: false,
     },
     email: {
@@ -26,7 +34,7 @@ const User = sequelizer.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("admin", "user"),
+      type: DataTypes.ENUM("admin", "organizer", "attendee"),
       allowNull: false,
     },
     created_at: {

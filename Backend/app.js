@@ -41,7 +41,7 @@ const connectToDb = async () => {
     
     //run this once during the initialization of your app
     // await sequelizer
-    //   .sync({ force: false }) // Set force: true to recreate the tables every time
+    //   .sync({ force: true }) // Set force: true to recreate the tables every time
     //   .then(() => {
     //     console.log("Database synced successfully");
     //   })
