@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaPlus, FaListAlt, FaHistory, FaFileAlt, FaSignInAlt, FaUserPlus, FaHome } from "react-icons/fa";
-import "../styles/Sidebar.css";
+// import "../styles/Sidebar.css";
 
 const Sidebar = () => {
   return (

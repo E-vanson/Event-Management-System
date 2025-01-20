@@ -62,13 +62,26 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  console.log("The formdata: ", formData);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateStep(step)) {
       try {
-        const response = await axios.post("http://localhost:3000/user/createUser", formData);
-        setMessage("Registration successful! Redirecting to login...");
-        setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
+        const response = await fetch("http://localhost:3000/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData), 
+        });
+
+        if (response.ok) {
+          setMessage("Registration successful! Redirecting to login...");
+          setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
+        }
+        
+        setMessage("Registration failed!!");
       } catch (error) {
         setMessage(
           error.response?.data?.message || "An error occurred during registration"
