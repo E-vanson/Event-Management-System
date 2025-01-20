@@ -40,14 +40,14 @@ const connectToDb = async () => {
         .catch((err) => console.error("Unable to connect to the database:", err));
     
     //run this once during the initialization of your app
-    // await sequelizer
-    //   .sync({ force: true }) // Set force: true to recreate the tables every time
-    //   .then(() => {
-    //     console.log("Database synced successfully");
-    //   })
-    //   .catch((err) => {
-    //     console.error("Error syncing the database:", err);
-    //   }); 
+     await sequelizer
+       .sync({ force: true }) // Set force: true to recreate the tables every time
+       .then(() => {
+         console.log("Database synced successfully");
+       })
+       .catch((err) => {
+         console.error("Error syncing the database:", err);
+       }); 
 }
 
 

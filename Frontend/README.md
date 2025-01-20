@@ -9,3 +9,5 @@ Currently, two official plugins are available:
 
 npm install react-hook-form yup @hookform/resolvers
 
+npm install react-icons
+npm install axios
