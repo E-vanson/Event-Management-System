@@ -48,7 +48,7 @@ const SidebarItem = ({ to, icon, label, isSidebarOpen }) => {
         <NavLink 
           to={to} 
           className="sidebar-link" 
-          activeClassName="active" // Automatically adds 'active' class when the link is active
+          activeClassName="active" 
         >
           {label}
         </NavLink>

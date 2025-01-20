@@ -7,6 +7,7 @@ import multer from "multer";
 import { v4 as uuidv4 } from "uuid"
 import cookieParser from "cookie-parser";
 
+
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
@@ -23,11 +24,12 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
+app.use(express.json());
 const allowedOrigin = "http://localhost:5173";
 app.use(cors({origin: allowedOrigin, credentials: true, }));
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
 app.use(bodyParser.json({ limit: "100mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 app.use(cookieParser());
@@ -70,16 +72,16 @@ const connectToDb = async () => {
     .catch((err) => console.error("Unable to connect to the database:", err));
 
   // run this once during the initialization of your app
-  //  await sequelizer
-  //    .sync({ force: false }) // Set force: true to recreate the tables every time
-  //    .then(() => {
-  //      console.log("Database synced successfully");
-  //    })
-  //    .catch((err) => {
-  //      console.error("Error syncing the database:", err);
-  //    });
+   /* await sequelizer
+      .sync({ force: false }) // Set force: true to recreate the tables every time
+      .then(() => {
+        console.log("Database synced successfully");
+      })
+      .catch((err) => {
+        console.error("Error syncing the database:", err);
+      });
 
-  // await sequelizer.sync({ alter: true });
+   await sequelizer.sync({ alter: true });*/
 }
 
 

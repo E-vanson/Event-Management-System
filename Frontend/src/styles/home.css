@@ -36,6 +36,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  justify-content: space-between; /* Align the cards neatly */
 }
 
 .event-card {
@@ -43,10 +44,11 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
-  flex: 1 1 calc(25% - 1.5rem); /* 4 cards per row */
+  flex: 1 1 22%; /* Allow cards to grow and shrink, 4 cards per row */
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 250px; /* Minimum width for the cards */
 }
 
 .event-card:hover {
@@ -149,6 +151,6 @@ button:hover {
 
 @media (max-width: 480px) {
   .event-card {
-    flex: 1 1 100%; /* Full width */
+    flex: 1 1 100%; /* Full width for smaller devices */
   }
 }
