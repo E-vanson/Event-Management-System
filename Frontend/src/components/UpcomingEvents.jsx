@@ -1,15 +1,14 @@
+import React, { useState } from "react";
+import { FaEdit, FaTrashAlt, FaHeart, FaRegHeart } from "react-icons/fa";
+import "../styles/UpcomingEvents.css";
 
-import React from "react";
-import { FaTrashAlt, FaHeart } from "react-icons/fa";
-import "../styles/FavoriteEvents.css";
-
-const FavoriteEvents = ({ favoriteEvents = [], toggleFavorite, handleDelete }) => {
+const CreatedEvents = ({ events = [], handleEdit, handleDelete, toggleFavorite }) => {
   return (
-    <div className="favorite-events-container">
-      <h1 className="favorite-events-title">Favorite Events</h1>
-      {favoriteEvents.length > 0 ? (
+    <div className="created-events-container">
+      <h1 className="created-events-title">Created Events</h1>
+      {events.length > 0 ? (
         <div className="event-list">
-          {favoriteEvents.map((event, index) => (
+          {events.map((event, index) => (
             <div key={index} className="event-card">
               {event.image && (
                 <img
@@ -27,10 +26,10 @@ const FavoriteEvents = ({ favoriteEvents = [], toggleFavorite, handleDelete }) =
               </div>
               <div className="event-actions">
                 <button
-                  className="icon-button favorite-button"
-                  onClick={() => toggleFavorite(index)}
+                  className="icon-button edit-button"
+                  onClick={() => handleEdit(index)}
                 >
-                  <FaHeart color="red" />
+                  <FaEdit />
                 </button>
                 <button
                   className="icon-button delete-button"
@@ -38,15 +37,21 @@ const FavoriteEvents = ({ favoriteEvents = [], toggleFavorite, handleDelete }) =
                 >
                   <FaTrashAlt />
                 </button>
+                <button
+                  className="icon-button favorite-button"
+                  onClick={() => toggleFavorite(index)}
+                >
+                  {event.isFavorite ? <FaHeart color="red" /> : <FaRegHeart />}
+                </button>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <p className="no-events-message">No favorite events yet. Start by adding some favorites!</p>
+        <p className="no-events-message">No events created yet. Start by adding a new event!</p>
       )}
     </div>
   );
 };
 
-export default FavoriteEvents;
+export default CreatedEvents;

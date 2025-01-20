@@ -4,7 +4,7 @@ import Layout from "./layouts/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import CreatedEvents from "./components/CreatedEvents";
+import UpcomingEvents from "./components/UpcomingEvents";
 import NewEvent from "./components/NewEvents";
 import PastEvents from "./components/PastEvents";
 import Templates from "./components/Templates";
@@ -31,10 +31,10 @@ const App = () => {
           }
         />
         <Route
-          path="/created-events"
+          path="/upcoming-events"
           element={
             <ProtectedRoutes>
-              <CreatedEvents />
+              <UpcomingEvents />
             </ProtectedRoutes>
           }
         />

@@ -1,10 +1,7 @@
-// Dashboard.jsx
 import React, { useState } from "react";
 import "../styles/home.css";
-import HeroSection from "../components/HeroSection";
 
-const Dashboard = () => {
-  const [events, setEvents] = useState([]);
+const Dashboard = ({ addEvent }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -12,7 +9,6 @@ const Dashboard = () => {
     time: "",
     image: null,
   });
-  const [editIndex, setEditIndex] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,30 +21,12 @@ const Dashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (editIndex !== null) {
-      const updatedEvents = [...events];
-      updatedEvents[editIndex] = formData;
-      setEvents(updatedEvents);
-      setEditIndex(null);
-    } else {
-      setEvents([...events, formData]);
-    }
+    addEvent(formData); // Pass the new event to the parent
     setFormData({ title: "", description: "", date: "", time: "", image: null });
   };
 
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setFormData(events[index]);
-  };
-
-  const handleDelete = (index) => {
-    const filteredEvents = events.filter((_, i) => i !== index);
-    setEvents(filteredEvents);
-  };
-
   return (
-    
-   <div className="dashboard-container">
+    <div className="dashboard-container">
       <h1>Event Management Dashboard</h1>
 
       {/* Event Form */}
@@ -109,48 +87,11 @@ const Dashboard = () => {
           />
         </div>
         <button type="submit" className="btn-primary">
-          {editIndex !== null ? "Update Event" : "Create Event"}
+          Create Event
         </button>
       </form>
-
-      {/* Event List */}
-      <div className="event-list">
-        <h2>Created Events</h2>
-        {events.length > 0 ? (
-          events.map((event, index) => (
-            <div key={index} className="event-card">
-              {event.image && (
-                <img
-                  src={URL.createObjectURL(event.image)}
-                  alt="Event"
-                  className="event-image"
-                />
-              )}
-              <div className="event-details">
-                <h3>{event.title}</h3>
-                <p>{event.description}</p>
-                <p>
-                  Date: {event.date} | Time: {event.time}
-                </p>
-              </div>
-              <div className="event-actions">
-                <button className="btn-secondary" onClick={() => handleEdit(index)}>
-                  Edit
-                </button>
-                <button className="btn-danger" onClick={() => handleDelete(index)}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No events created yet. Start by adding a new event!</p>
-        )}
-      </div>
     </div>
   );
 };
 
 export default Dashboard;
-
-

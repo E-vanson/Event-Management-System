@@ -19,7 +19,7 @@ const Sidebar = () => {
           </li>
           <li>
             <FaListAlt className="sidebar-icon" />
-            <Link to="/created-events">Created Events</Link>
+            <Link to="/upcoming-events">Upcoming Events</Link>
           </li>
           <li>
             <FaHistory className="sidebar-icon" />
@@ -27,7 +27,7 @@ const Sidebar = () => {
           </li>
           <li>
             <FaFileAlt className="sidebar-icon" />
-            <Link to="/templates">Templates</Link>
+            <Link to="/templates">Favorites</Link>
           </li>
           <li>
             <FaSignInAlt className="sidebar-icon" />
