@@ -38,7 +38,7 @@ const Login = () => {
         }
         
         setMessage(`Login failed!!`);
-      } catch (error) {
+      } catch (error) { 
         setMessage(
           error.message || "An error occurred during login"
         );      
