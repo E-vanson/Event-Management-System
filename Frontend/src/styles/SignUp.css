@@ -1,153 +1,224 @@
-/* General Styles */
-body {
+/* General Styling */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-  }
-  
-  .container {
+}
+
+body {
+    background-color: #f4f7fc;
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Main container for the entire SignUp page */
+.signup-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-  }
-  
-  /* Left: Form Section */
-  .form-container {
-    flex: 1;
-    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Form section */
+.form-wrapper {
+    width: 50vw;  /* Form takes 50% of the screen width */
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background-color: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Logo Section */
-  .logo-section {
-    margin-bottom: 1rem;
-  }
-  
-  .logo {
-    width: 80px;
-    height: auto;
-  }
-  
-  h1 {
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
-    color: #333;
+    align-items: center;
     text-align: center;
-  }
-  
-  .tagline {
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    color: #555;
-    text-align: center;
-  }
-  
-  /* Form Styling */
-  form {
+    background-color: transparent;  /* Removed background color */
+}
+
+.form-wrapper h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.form-wrapper p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
     width: 100%;
-    max-width: 400px;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
+    height: 5px;
+    background-color: #ecf0f1;
+    margin-bottom: 30px;
     border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  /* Buttons */
-  .btn {
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #1abc9c;
+    transition: width 0.3s ease;
+}
+
+form {
     width: 100%;
-    padding: 0.8rem;
-    background-color: #007bff;
-    color: white;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    width: 20%;  /* Make Sign Up button take 20% width */
+    padding: 12px 0; /* Equal padding */
+}
+
+.btn-primary:hover {
+    background-color: #16a085;
+}
+
+.btn-secondary {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #c0392b;
+}
+
+.btn-login {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .btn-secondary {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #f4f4f4;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  /* Right: Image Section */
-  .image-container {
-    flex: 1;
+    margin-top: 20px;
+}
+
+.btn-login:hover {
+    background-color: #2980b9;
+}
+
+/* Button group for Back and Next buttons */
+.button-group {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #e8e8e8;
-    overflow: hidden;
-  }
-  
-  .image-container img {
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column-reverse;
+}
+
+button[type="button"] {
+    width: 20%;  /* Buttons take 20% of the width */
+    padding: 12px 0; /* Equal padding */
+}
+
+button[type="submit"] {
+    width: 20%; /* Make the submit button take 20% width */
+    padding: 12px 0; /* Equal padding */
+    background-color: #1abc9c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Image Section */
+.image-wrapper {
+    width: 50vw;  /* Image section also takes 50% of the screen width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f7fc;
+}
+
+.signup-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .signup-container {
+        flex-direction: column;  /* Stack the form and image vertically */
+        width: 90%;
     }
-  
-    .form-container {
-      padding: 1.5rem;
+
+    .form-wrapper {
+        width: 100%;
+        padding: 20px;
     }
-  
-    h1 {
-      font-size: 1.5rem;
+
+    .form-wrapper h1 {
+        font-size: 2rem;
     }
-  
-    .tagline {
-      font-size: 0.9rem;
+
+    .progress-bar {
+        margin-bottom: 20px;
     }
-  
-    .image-container {
-      height: 40%;
+
+    .image-wrapper {
+        width: 100%;
+        margin-top: 20px;
     }
-  }
-  
+
+    .signup-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    button[type="button"] {
+        width: 100%;  /* Buttons take full width on smaller screens */
+        margin-bottom: 10px;
+    }
+}
+
+/* Error Message Styling */
+.form-group .error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    text-align: left;  /* Align error message to the left */
+    margin-left: 8px;  /* Small margin for positioning */
+}
+
