@@ -1,4 +1,4 @@
-                  #                      Event-Management-System
+                  Power Learn Project Events Platform
 
 # Setting up the enviroment
 > Create a .env file in the /Backend directory
