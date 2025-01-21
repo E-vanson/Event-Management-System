@@ -84,6 +84,7 @@ Environment Variables
 
 Install dependencies:
 
+    cd Backend || cd Fronend
     npm install
 
 # Start Development Server
