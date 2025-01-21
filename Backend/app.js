@@ -11,7 +11,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 
-import { createEvent } from './controllers/eventsController.js';
+import { createEvent, updateEvent } from './controllers/eventsController.js';
 import userRoutes from '../Backend/routes/userRoutes.js';
 import authRoutes from '../Backend/routes/authRoutes.js';
 import eventRoutes from '../Backend/routes/eventRoutes.js';
@@ -54,6 +54,7 @@ const upload = multer({ storage });
 
 
 app.post("/event/createEvent", upload.single('image'), createEvent)
+app.put("/event/updateEvent/:id", upload.single("image"), updateEvent);
 app.use("/user", userRoutes);   
 app.use("/auth", authRoutes);
 app.use("/event", eventRoutes);

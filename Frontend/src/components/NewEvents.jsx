@@ -202,6 +202,8 @@ const Dashboard = () => {
   });
   const [editIndex, setEditIndex] = useState(null);
   const [formVisible, setFormVisible] = useState(false);  // New state for form visibility
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -241,26 +243,40 @@ const Dashboard = () => {
       newFormData.append("image", formData.image);  // Use 'image' here
     }
 
-      const response = await fetch("http://localhost:3000/event/createEvent", {
-        method: "POST",   
-        headers: {          
-           Authorization: `Bearer ${localStorage.getItem("AuthToken")}`,
-              },
-        body: newFormData, 
-        credentials: "include"
-        });
-
-      console.log("The formmmForm data: ", newFormData); 
-      console.log("The response: ", response);  // Check form data before sending
+      let response;
+    if (editIndex === null) {      
+      response = await fetch("http://localhost:3000/event/createEvent", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AuthToken")}`,
+        },
+        body: newFormData,
+        credentials: "include",
+      });
+    } else {    
+      console.log("I am here")  
+      const eventId = events[editIndex].id; // Assuming each event has a unique '_id'
+      console.log("I am here", eventId)  
+      response = await fetch(`http://localhost:3000/event/updateEvent/${eventId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AuthToken")}`,
+        },
+        body: newFormData,
+        credentials: "include",
+      });
+    }
+      
+       console.log("I am here now", response) 
         if (response.ok) {
-          setMessage("Event Added successfully!"); 
-          
-          if (editIndex !== null) {
-            const updatedEvents = [...events];
-            updatedEvents[editIndex] = formData;
-            setEvents(updatedEvents);
-            setEditIndex(null);
-         } else {
+          setMessage("Event submitted successfully!");
+      if (editIndex !== null) {
+        // Update the event in local state
+        const updatedEvents = [...events];
+        updatedEvents[editIndex] = { ...formData, id: events[editIndex].id }; // Preserve the event ID
+        setEvents(updatedEvents);
+        setEditIndex(null); // Reset edit index
+      }else {
             setEvents([...events, formData]);
         }
         } else {
@@ -275,22 +291,65 @@ const Dashboard = () => {
     setFormVisible(false); // Hide the form after submission
   };
 
+  const openConfirmationDialog = (index) => {
+  setEventToDelete(index);
+  setShowConfirmation(true);
+};
+
+// Close confirmation dialog
+const closeConfirmationDialog = () => {
+  setEventToDelete(null);
+  setShowConfirmation(false);
+};
+
+// Confirm delete and call backend
+const confirmDelete = async () => {
+  if (eventToDelete === null) return;
+
+  const eventId = events[eventToDelete].id; // Assuming each event has a unique ID
+  try {
+    const response = await fetch(`http://localhost:3000/event/deleteEvent/${eventId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AuthToken')}`,
+      },
+      credentials: 'include',
+    });
+
+    if (response.ok) {
+      setEvents(events.filter((_, i) => i !== eventToDelete));
+      setMessage('Event deleted successfully');
+    } else {
+      setMessage('Failed to delete the event');
+    }
+  } catch (error) {
+    setMessage(error.message || 'An error occurred while deleting the event');
+  } finally {
+    closeConfirmationDialog(); // Close the modal
+  }
+};
+
+
   const handleEdit = (index) => {
     setEditIndex(index);
     setFormData(events[index]);
     setFormVisible(true); // Show the form when editing
   };
 
-  const handleDelete = (index) => {
-    const filteredEvents = events.filter((_, i) => i !== index);
-    setEvents(filteredEvents);
-  };
+  // const handleDelete = (index) => {
+  //   const filteredEvents = events.filter((_, i) => i !== index);
+  //   setEvents(filteredEvents);
+  // };
 
   // Show form when "Add Event" button is clicked
   const handleAddEventClick = () => {
     setFormVisible(true);
     setEditIndex(null); // Reset editIndex when adding new event
     setFormData({ name: "", venue: "", description: "", startDate: "", endDate: "", image: null }); // Clear form
+  };
+
+  const handleCloseForm = () => {
+    setFormVisible(false);  // Hide the form when the close button is clicked
   };
 
   return (
@@ -305,6 +364,9 @@ const Dashboard = () => {
       {/* Event Form (Visible when formVisible is true) */}
       {formVisible && (
         <form className="event-form" onSubmit={handleSubmit}>
+          <button type="button" className="btn-close" onClick={handleCloseForm}>
+            X
+          </button>
           <div className="form-group">
             <label htmlFor="name">Event Name</label>
             <input
@@ -376,6 +438,9 @@ const Dashboard = () => {
           <button type="submit" className="btn-primary">
             {editIndex !== null ? "Update Event" : "Create Event"}
           </button>
+          {/* <button type="submit" className="btn-primary">
+            "Cancel" 
+          </button> */}
         </form>
       )}
 
@@ -405,9 +470,25 @@ const Dashboard = () => {
                 <button className="btn-secondary" onClick={() => handleEdit(index)}>
                   Edit
                 </button>
-                <button className="btn-danger" onClick={() => handleDelete(index)}>
+                <button className="btn-danger" onClick={() => openConfirmationDialog(index)}>
                   Delete
                 </button>
+
+                {showConfirmation && (
+  <div className="confirmation-modal">
+    <div className="modal-content">
+      <h3>Are you sure you want to delete this event?</h3>
+      <div className="modal-actions">
+        <button className="btn-primary" onClick={confirmDelete}>
+          Yes, Delete
+        </button>
+        <button className="btn-secondary" onClick={closeConfirmationDialog}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
               </div>
             </div>
           ))

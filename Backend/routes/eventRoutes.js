@@ -8,7 +8,7 @@ const router = express.Router();
 
 // router.post("/createEvent", createEvent);
 router.get("/getEvents", getEvents);
-router.get("/updateEvent", updateEvent);
-router.get("/deleteEvent", deleteEvent);
+// router.put("/updateEvent", updateEvent);
+router.delete("/deleteEvent/:id", deleteEvent);
 
 export default router;

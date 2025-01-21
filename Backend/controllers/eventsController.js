@@ -76,9 +76,22 @@ export const getEvents = async (req, res) => {
 }
 
 export const updateEvent = async (req, res) => {
-    const { id, update } = req.body;
+  console.log("The update event controller:....");
+  const { name,venue, startDate, endDate, description } = req.body;
+  const {id} = req.params
 
-    try {
+
+  const eventUpdate = {
+    name: name,
+    venue: venue,
+    startDate: startDate,
+    endDate: endDate,
+    description: description,
+    imagePath: req?.file?.path || null
+  }
+
+  try {
+      console.log("The update event controller:....");
       const event = await Event.findByPk(id);
 
       if (!event) {
@@ -86,7 +99,8 @@ export const updateEvent = async (req, res) => {
           message: `Event to be updated does not exist`,
         });
       }
-      await event.update(update);
+     
+      await event.update(eventUpdate);
       console.log("Event updated successfully");
       return res
         .status(200)
@@ -100,7 +114,7 @@ export const updateEvent = async (req, res) => {
 }
 
 export const deleteEvent = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     try {
       const event = await Event.findByPk(id);
