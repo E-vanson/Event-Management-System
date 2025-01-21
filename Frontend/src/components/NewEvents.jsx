@@ -1,18 +1,222 @@
 // Dashboard.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/home.css";
 import HeroSection from "../components/HeroSection";
 
+// const Dashboard = () => {
+//   const [events, setEvents] = useState([]);
+//   const [message, setMessage] = useState("");
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     venue: "",
+//     description: "",
+//     startDate: "",
+//     endDate: "",   
+//     image: "",
+//   });
+//   const [editIndex, setEditIndex] = useState(null);
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleImageChange = (e) => {
+//     setFormData({ ...formData, image: e.target.files[0] });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (editIndex !== null) {
+//       const updatedEvents = [...events];
+//       updatedEvents[editIndex] = formData;
+//       setEvents(updatedEvents);
+//       setEditIndex(null);
+//     } else {
+//       setEvents([...events, formData]);
+//     }
+
+//     try {
+//       const response = await fetch("http://localhost:3000/event/createEvent", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json"
+//           },
+//           body: JSON.stringify(formData), 
+//         });
+
+//         if (response.ok) {
+//           setMessage("Event Added successfully!");          
+//         } else {
+//            setMessage(`Login failed!!`);
+//         }
+//     } catch (error) {
+//       setMessage(
+//           error.message || "An error occurred creating an event"
+//         );  
+//     }
+//     setFormData({ title: "", description: "", date: "", time: "", image: null });
+//   };
+
+//   console.log("The formdata: ", formData)
+//   const handleEdit = (index) => {
+//     setEditIndex(index);
+//     setFormData(events[index]);
+//   };
+
+//   const handleDelete = (index) => {
+//     const filteredEvents = events.filter((_, i) => i !== index);
+//     setEvents(filteredEvents);
+//   };
+
+//   return (
+    
+//   //  <div className="dashboard-container">
+//   //     <h1>Event Management Dashboard</h1>
+
+//   //     {/* Event Form */}
+//   //     <form className="event-form" onSubmit={handleSubmit}>
+//   //       <div className="form-group">
+//   //         <label htmlFor="name">Event Name</label>
+//   //         <input
+//   //           type="text"
+//   //           id="name"
+//   //           name="name"
+//   //           placeholder="Enter event name"
+//   //           value={formData.name}
+//   //           onChange={handleInputChange}
+//   //           required
+//   //         />
+//   //       </div>
+//   //       <div className="form-group">
+//   //         <label htmlFor="description">Description</label>
+//   //         <textarea
+//   //           id="description"
+//   //           name="description"
+//   //           placeholder="Enter event description"
+//   //           value={formData.description}
+//   //           onChange={handleInputChange}
+//   //           required
+//   //         ></textarea>
+//   //       </div>
+//   //       <div className="form-group">
+//   //         <label htmlFor="startDate">Start Date</label>
+//   //         <input
+//   //           type="date"
+//   //           id="startDate"
+//   //           name="startDate"
+//   //           value={formData.startDate}
+//   //           onChange={handleInputChange}
+//   //           required
+//   //         />
+//   //       </div>
+//   //       <div className="form-group">
+//   //         <label htmlFor="endDate">End Date</label>
+//   //         <input
+//   //           type="date"
+//   //           id="endDate"
+//   //           name="endDate"
+//   //           value={formData.endDate}
+//   //           onChange={handleInputChange}
+//   //           required
+//   //         />
+//   //       </div>
+//   //       <div className="form-group">
+//   //         <label htmlFor="venue">Venue</label>
+//   //         <input
+//   //           type="venue"
+//   //           id="venue"
+//   //           name="venue"
+//   //           value={formData.venue}
+//   //           onChange={handleInputChange}
+//   //           required
+//   //         />
+//   //       </div>
+//   //       <div className="form-group">
+//   //         <label htmlFor="image">Event Image</label>
+//   //         <input
+//   //           type="file"
+//   //           id="image"
+//   //           name="image"
+//   //           accept="image/*"
+//   //           onChange={handleImageChange}
+//   //         />
+//   //       </div>
+//   //       <button type="submit" className="btn-primary">
+//   //         {editIndex !== null ? "Update Event" : "Create Event"}
+//   //       </button>
+//   //     </form>
+//   //     {message && <p className="feedback">{message}</p>}
+
+//   //     {/* Event List */}
+//   //     <div className="event-list">
+//   //       <h2>Created Events</h2>
+//   //       {events.length > 0 ? (
+//   //         events.map((event, index) => (
+//   //           <div key={index} className="event-card">
+//   //             {event.image && (
+//   //               <img
+//   //                 src={URL.createObjectURL(event.image)}
+//   //                 alt="Event"
+//   //                 className="event-image"
+//   //               />
+//   //             )}
+//   //             <div className="event-details">
+//   //               <h3>{event.title}</h3>
+//   //               <p>{event.description}</p>
+//   //               <p>
+//   //                 Date: {event.date} | Time: {event.time}
+//   //               </p>
+//   //             </div>
+//   //             <div className="event-actions">
+//   //               <button className="btn-secondary" onClick={() => handleEdit(index)}>
+//   //                 Edit
+//   //               </button>
+//   //               <button className="btn-danger" onClick={() => handleDelete(index)}>
+//   //                 Delete
+//   //               </button>
+//   //             </div>
+//   //           </div>
+//   //         ))
+//   //       ) : (
+//   //         <p>No events created yet. Start by adding a new event!</p>
+//   //       )}
+//   //     </div>
+//     //   </div>
+    
+    
+
+//   );
+// };
+
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
+    venue: "",
     description: "",
-    date: "",
-    time: "",
-    image: null,
+    startDate: "",
+    endDate: "",   
+    image: "",
   });
   const [editIndex, setEditIndex] = useState(null);
+  const [formVisible, setFormVisible] = useState(false);  // New state for form visibility
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/event/getEvents");
+        const data = await response.json();
+        console.log("The Events Data....", data);
+        setEvents(data.events);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,22 +227,58 @@ const Dashboard = () => {
     setFormData({ ...formData, image: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editIndex !== null) {
-      const updatedEvents = [...events];
-      updatedEvents[editIndex] = formData;
-      setEvents(updatedEvents);
-      setEditIndex(null);
-    } else {
-      setEvents([...events, formData]);
+    try {
+       const newFormData = new FormData();
+      newFormData.append("name", formData.name);
+      newFormData.append("venue", formData.venue);
+      newFormData.append("startDate", formData.startDate);
+      newFormData.append("endDate", formData.endDate);
+      newFormData.append("description", formData.description);
+
+      if (formData.image) {
+      newFormData.append("image", formData.image);  // Use 'image' here
     }
-    setFormData({ title: "", description: "", date: "", time: "", image: null });
+
+      const response = await fetch("http://localhost:3000/event/createEvent", {
+        method: "POST",   
+        headers: {          
+           Authorization: `Bearer ${localStorage.getItem("AuthToken")}`,
+              },
+        body: newFormData, 
+        credentials: "include"
+        });
+
+      console.log("The formmmForm data: ", newFormData); 
+      console.log("The response: ", response);  // Check form data before sending
+        if (response.ok) {
+          setMessage("Event Added successfully!"); 
+          
+          if (editIndex !== null) {
+            const updatedEvents = [...events];
+            updatedEvents[editIndex] = formData;
+            setEvents(updatedEvents);
+            setEditIndex(null);
+         } else {
+            setEvents([...events, formData]);
+        }
+        } else {
+           setMessage(`Error Creating Event!!`);
+        }
+    } catch (error) {
+      setMessage(
+          error.message || "An error occurred creating an event"
+        );  
+    }
+    setFormData({ name: "", venue: "", description: "", startDate: "", endDate: "", image: null });
+    setFormVisible(false); // Hide the form after submission
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
     setFormData(events[index]);
+    setFormVisible(true); // Show the form when editing
   };
 
   const handleDelete = (index) => {
@@ -46,72 +286,100 @@ const Dashboard = () => {
     setEvents(filteredEvents);
   };
 
+  // Show form when "Add Event" button is clicked
+  const handleAddEventClick = () => {
+    setFormVisible(true);
+    setEditIndex(null); // Reset editIndex when adding new event
+    setFormData({ name: "", venue: "", description: "", startDate: "", endDate: "", image: null }); // Clear form
+  };
+
   return (
-    
-   <div className="dashboard-container">
+    <div className="dashboard-container">
       <h1>Event Management Dashboard</h1>
 
-      {/* Event Form */}
-      <form className="event-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Event Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder="Enter event title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Enter event description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="date">Date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Time</label>
-          <input
-            type="time"
-            id="time"
-            name="time"
-            value={formData.time}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="image">Event Image</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-        </div>
-        <button type="submit" className="btn-primary">
-          {editIndex !== null ? "Update Event" : "Create Event"}
-        </button>
-      </form>
+      {/* Add Event Button */}
+      <button className="btn-primary" onClick={handleAddEventClick}>
+        Add Event
+      </button>
+
+      {/* Event Form (Visible when formVisible is true) */}
+      {formVisible && (
+        <form className="event-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Event Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter event name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Enter event description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="datetime-local"
+              id="startDate"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="datetime-local"
+              id="endDate"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              min={formData.startDate}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="venue">Venue</label>
+            <input
+              type="text"
+              id="venue"
+              name="venue"
+              value={formData.venue}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="imagePath">Event Image</label>
+            <input
+              type="file"
+              id="imagePath"
+              name="imagePath"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            {formData.image && <p>{formData.image.name}</p>}
+          </div>
+          <button type="submit" className="btn-primary">
+            {editIndex !== null ? "Update Event" : "Create Event"}
+          </button>
+        </form>
+      )}
+
+      {message && <p className="feedback">{message}</p>}
 
       {/* Event List */}
       <div className="event-list">
@@ -127,10 +395,10 @@ const Dashboard = () => {
                 />
               )}
               <div className="event-details">
-                <h3>{event.title}</h3>
+                <h3>{event.name}</h3> {/* Changed from title to name */}
                 <p>{event.description}</p>
                 <p>
-                  Date: {event.date} | Time: {event.time}
+                  Date: {event.startDate} | End Date: {event.endDate}
                 </p>
               </div>
               <div className="event-actions">
@@ -152,5 +420,8 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+// export default Dashboard;
 
 

@@ -1,41 +1,45 @@
 import { DataTypes } from "sequelize";
 import { sequelizer } from "../config/db.js";
 
-const User = sequelizer.define(
-  "User",
+const Event = sequelizer.define(
+  "Event",
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    firstName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
+    venue: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    gender: {
-      type: DataTypes.ENUM("male", "female", "prefer_not_to_say"),
+    startDate: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    email: {
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
+    },
+    createdBy: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
       },
     },
-    password: {
+    imagePath: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role: {
-      type: DataTypes.ENUM("admin", "organizer", "attendee"),
-      allowNull: false,
+      allowNull: true,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -49,12 +53,11 @@ const User = sequelizer.define(
     },
   },
   {
-    tableName: "users",
-    timestamps: true, // Enables createdAt and updatedAt automatically
-    createdAt: "created_at", // Maps Sequelize's default createdAt
-    updatedAt: "updated_at", // Maps Sequelize's default updatedAt
+    tableName: "events",
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
   }
 );
 
-export default User;
-
+export default Event;

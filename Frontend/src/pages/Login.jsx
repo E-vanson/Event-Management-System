@@ -32,8 +32,12 @@ const Login = () => {
           body: JSON.stringify(formData), 
         });
 
+        const data = await response.json();
+
+        console.log(response, "The response for login", response.token)
         if (response.ok) {
           setMessage("Login successful! Redirecting to login...");
+          localStorage.setItem("AuthToken",data.token)
           setTimeout(() => navigate("/created-events"), 2000); // Redirect after 2 seconds
         }
         
