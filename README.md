@@ -22,14 +22,82 @@ Event Management
         View event details
 
 
+Technical Features
+
+    Real-time Updates
+        Real-time event updates
+        
+    
+    Security
+        Environment variable protection
+        API route protection
+        Data validation
+        Role Based Access to endpoints  
+
+
+        Technology Stack
+Frontend
+
+    React framework 
+    Vanilla CSS - for styling
+    react-icons - for icons
+
+Backend
+
+    Sequlize -  database ORM
+    MySQL - Primary database
+    jsonwebtoken - Authentication and user management
+    node - runtime enviroment
+    express - routing routes
+
+Development & Deployment
+
+    Java Script 
+    React
+    
+
 # Setting up the enviroment
+Prerequisites
+
+    Node.js 18+ and npm
+    MySQL database
+
+  Installation
+
+  Clone the repository:
+  git clone https://github.com/E-vanson/Event-Management-System.git
+  cd Event-Management-System
+
+Environment Variables    
 > Create a .env file in the /Backend directory
 
-> Add the following variables: PORT = "localhost", DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME  depending on your configurations
+> Add the following variables:
+                       PORT = "localhost"
+                       DB_USERNAME = "username"
+                       DB_PASSWORD = "password
+                       DB_HOST = "localhost"
+                       DB_NAME = ""db name
 
-# Install Packages
-> Run: npm install
 
-# Start Server
-> Run: npm run dev
+Install dependencies:
+
+  npm install
+
+# Start Development Server
+  npm run dev
+
+
+  API Documentation
+Event Endpoints
+
+    GET /event/getEvents - Get all events
+    POST /event/createEvent - Create new event (Admin only)
+    GET /event/[id] - Get specific event
+    PUT /event/updateEvent/:id - Update event (Admin only)
+    DELETE /event/deleteEvent/:id - Delete event (Admin only)
+
+  Auth Endpoints
+
+    POST /auth/register - Create and Register User
+    POST /auth/login - Login User
 
