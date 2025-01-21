@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Manager Login</title>
+  <link rel="stylesheet" href="public/css/styles2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* Base Styles */
+    :root {
+      --primary-bg: #f4f4f9;
+      --primary-text: #333;
+      --secondary-text: #555;
+      --accent-color: #3498db;
+      --light-form-bg: #ffffff;
+      --light-shadow: rgba(0, 0, 0, 0.1);
+      --dark-mode-bg: #2c3e50;
+      --dark-form-bg: #34495e;
+      --dark-text: #ecf0f1;
+      --dark-shadow: rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--primary-text);
+      transition: all 0.3s ease;
+    }
+    
+    h1, h2, h3, p {
+      text-align: center;
+    }
+    
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .fade-in {
+      animation: fadeIn 1s ease;
+    }
+    
+    /* Dark Mode Specifics */
+    body.dark-mode {
+      --primary-bg: var(--dark-mode-bg);
+      --primary-text: var(--dark-text);
+      --secondary-text: var(--dark-text);
+      --accent-color: #e67e22;
+      --light-form-bg: var(--dark-form-bg);
+      --light-shadow: var(--dark-shadow);
+    }
+    
+    button#toggleMode {
+      background: none;
+      border: none;
+      color: var(--primary-text);
+      font-size: 20px;
+      position: fixed;
+      right: 20px;
+      top: 20px;
+    }
+    
+    /* Login Container */
+    .login-container {
+      max-width: 400px;
+      width: 100%;
+      margin: auto;
+      padding: 20px;
+      background: var(--light-form-bg);
+      box-shadow: 0px 4px 6px var(--light-shadow);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .roles {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    
+    /* Updated Button Hover and Active Effects */
+    .role-btn {
+      background: var(--accent-color);
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      width: 45%;
+      transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .role-btn:hover {
+      transform: scale(1.05);
+      background: rgba(52, 152, 219, 0.9);
+    }
+    
+    .role-btn:active {
+      transform: scale(1.1);
+      background: rgba(52, 152, 219, 0.8);
+      padding: 12px 24px;
+    }
+    
+    /* Login Form */
+    .login-form {
+      margin-top: 20px;
+    }
+    
+    label {
+      display: block;
+      font-size: 14px;
+      color: var(--secondary-text);
+      margin-bottom: 5px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+    
+    .submit-btn {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      width: 100%;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      background: rgba(52, 152, 219, 0.9);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      .login-container {
+        padding: 30px;
+      }
+    }
+    
+  </style>
+</head>
+<body class="login_body">
+  <main class="login-container">
+    <div class="login-header">
+      <h1>Welcome to Event Manager</h1>
+      <p>Please select your role to log in and manage or explore events.</p>
+    </div>
+
+    <section class="role-selection">
+      <h2>Login as:</h2>
+      <div class="roles">
+        <button id="adminBtn" class="role-btn">Admin</button>
+        <button id="clientBtn" class="role-btn">Client</button>
+      </div>
+    </section>
+
+    <section id="loginForm" class="login-form hidden">
+      <form id="login" action="/api/login" method="POST">
+        <h3>Log in as <span id="roleText"></span></h3>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
+        <button type="submit" class="submit-btn">Log In</button>
+      </form>
+      <p id="loggedInMessage" class="hidden"></p>
+    </section>
+  </main>
+
+  <!-- Dark Mode Toggle -->
+  <button id="toggleMode">
+    <i class="fas fa-sun"></i> <!-- Sun icon for light mode -->
+  </button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const adminBtn = document.getElementById("adminBtn");
+      const clientBtn = document.getElementById("clientBtn");
+      const loginForm = document.getElementById("loginForm");
+      const roleText = document.getElementById("roleText");
+      const loggedInMessage = document.getElementById("loggedInMessage");
+      const toggleMode = document.getElementById("toggleMode");
+  
+      // Role selection logic
+      adminBtn.addEventListener("click", () => showLoginForm("Admin"));
+      clientBtn.addEventListener("click", () => showLoginForm("Client"));
+  
+      function showLoginForm(role) {
+        loginForm.classList.remove("hidden");
+        roleText.textContent = role;
+        loggedInMessage.textContent = `You're logged in as ${role}!`;
+        loggedInMessage.classList.remove("hidden");
+      }
+  
+      // Dark/Light Mode Toggle
+      toggleMode.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const icon = toggleMode.querySelector("i");
+        if (document.body.classList.contains("dark-mode")) {
+          icon.classList.replace("fa-sun", "fa-moon");
+        } else {
+          icon.classList.replace("fa-moon", "fa-sun");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

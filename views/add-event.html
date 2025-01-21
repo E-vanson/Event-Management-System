@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Event - EventHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview.dragover {
+            border-color: var(--primary-color);
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .image-preview i {
+            font-size: 3rem;
+            color: #ddd;
+        }
+
+        .image-preview .remove-image {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-preview:hover .remove-image {
+            opacity: 1;
+        }
+
+        .category-select {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .category-option {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+            opacity: 0.6;
+        }
+
+        .category-option:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .category-option.selected {
+            opacity: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .price-input {
+            position: relative;
+        }
+
+        .price-input::before {
+            content: '$';
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+        }
+
+        .price-input input {
+            padding-left: 2rem;
+        }
+
+        .featured-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .validation-error {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">EventHub</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/add-event" class="active">Add Event</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container animate-fade-in">
+            <h2><i class="fas fa-calendar-plus"></i> Create New Event</h2>
+            
+            <form id="eventForm" class="animate-fade-in">
+                <div class="image-preview" id="imagePreview">
+                    <i class="fas fa-image"></i>
+                    <div class="remove-image" id="removeImage">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <input type="hidden" id="imageUrl" name="image_url">
+
+                <div class="form-group">
+                    <label for="title">Event Title</label>
+                    <input type="text" id="title" name="title" required 
+                           placeholder="Enter event title" class="animate-fade-in-delay">
+                    <div class="validation-error" id="titleError">Title must be at least 3 characters long</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <div class="category-select" id="categorySelect">
+                        <!-- Categories will be populated here -->
+                    </div>
+                    <input type="hidden" id="category" name="category" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="event_date">Event Date</label>
+                            <input type="date" id="event_date" name="event_date" required 
+                                   class="animate-fade-in-delay">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="event_time">Event Time</label>
+                            <input type="time" id="event_time" name="event_time" required 
+                                   class="animate-fade-in-delay">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" required 
+                           placeholder="Enter event location" class="animate-fade-in-delay">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Event Description</label>
+                    <textarea id="description" name="description" required 
+                             placeholder="Enter event description" class="animate-fade-in-delay"></textarea>
+                    <div class="validation-error" id="descriptionError">Description must be at least 10 characters long</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="max_attendees">Maximum Attendees</label>
+                            <input type="number" id="max_attendees" name="max_attendees" required 
+                                   min="1" value="50" class="animate-fade-in-delay">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="ticket_price">Ticket Price</label>
+                            <div class="price-input">
+                                <input type="number" id="ticket_price" name="ticket_price" required 
+                                       min="0" step="0.01" value="0.00" class="animate-fade-in-delay">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="organizer_name">Organizer Name</label>
+                            <input type="text" id="organizer_name" name="organizer_name" required 
+                                   placeholder="Enter organizer name" class="animate-fade-in-delay">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="organizer_email">Organizer Email</label>
+                            <input type="email" id="organizer_email" name="organizer_email" required 
+                                   placeholder="Enter organizer email" class="animate-fade-in-delay">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="is_featured" name="is_featured">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Feature this event</span>
+                </div>
+
+                <button type="submit" class="submit-button animate-fade-in-delay-2">
+                    <i class="fas fa-plus"></i> Create Event
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 EventHub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Fetch categories and populate the category select
+        fetch('/api/categories')
+            .then(response => response.json())
+            .then(categories => {
+                const categorySelect = document.getElementById('categorySelect');
+                categories.forEach(category => {
+                    const option = document.createElement('div');
+                    option.className = 'category-option';
+                    option.textContent = category.name;
+                    option.style.backgroundColor = category.color_code;
+                    option.onclick = () => {
+                        document.querySelectorAll('.category-option').forEach(opt => 
+                            opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        document.getElementById('category').value = category.name;
+                    };
+                    categorySelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
+        // Image upload handling
+        const imagePreview = document.getElementById('imagePreview');
+        const imageUpload = document.getElementById('imageUpload');
+        const removeImage = document.getElementById('removeImage');
+        const imageUrl = document.getElementById('imageUrl');
+
+        imagePreview.addEventListener('click', () => imageUpload.click());
+
+        imagePreview.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imagePreview.classList.add('dragover');
+        });
+
+        imagePreview.addEventListener('dragleave', () => {
+            imagePreview.classList.remove('dragover');
+        });
+
+        imagePreview.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imagePreview.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageUpload(file);
+            }
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleImageUpload(file);
+            }
+        });
+
+        removeImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+            imagePreview.innerHTML = '<i class="fas fa-image"></i><div class="remove-image" id="removeImage"><i class="fas fa-times"></i></div>';
+            imageUrl.value = '';
+            imageUpload.value = '';
+        });
+
+        function handleImageUpload(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.innerHTML = `
+                    <img src="${e.target.result}" alt="Event image">
+                    <div class="remove-image" id="removeImage">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                imageUrl.value = e.target.result;
+                
+                // Reattach event listener to new remove button
+                document.getElementById('removeImage').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    imagePreview.innerHTML = '<i class="fas fa-image"></i><div class="remove-image" id="removeImage"><i class="fas fa-times"></i></div>';
+                    imageUrl.value = '';
+                    imageUpload.value = '';
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Form validation and submission
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const eventDate = document.getElementById('event_date').value;
+            const category = document.getElementById('category').value;
+
+            let isValid = true;
+
+            if (title.length < 3) {
+                document.getElementById('titleError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('titleError').style.display = 'none';
+            }
+
+            if (description.length < 10) {
+                document.getElementById('descriptionError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('descriptionError').style.display = 'none';
+            }
+
+            if (!category) {
+                alert('Please select a category');
+                isValid = false;
+            }
+
+            const selectedDate = new Date(eventDate);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate < today) {
+                alert('Please select a future date for the event');
+                isValid = false;
+            }
+
+            if (isValid) {
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach((value, key) => data[key] = value);
+
+                fetch('/add-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    if (data.success) {
+                        window.location.href = '/';
+                    } else {
+                        throw new Error('Failed to create event');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error.message || 'Error creating event');
+                });
+            }
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('event_date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    </script>
+</body>
+</html>
