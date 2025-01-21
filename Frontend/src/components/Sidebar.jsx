@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPlus, FaListAlt, FaHistory, FaFileAlt, FaSignInAlt, FaUserPlus, FaHome } from "react-icons/fa";
+import { FaPlus, FaListAlt, FaHistory, FaFileAlt, FaSignInAlt, FaUserPlus, FaHome, FaUser } from "react-icons/fa";
 import "../styles/sidebar.css"
 
 const Sidebar = () => {
@@ -20,6 +20,10 @@ const Sidebar = () => {
           <li>
             <FaListAlt className="sidebar-icon" />
             <Link to="/created-events">Created Events</Link>
+          </li>
+          <li>
+            <FaUser className="sidebar-icon" />
+            <Link to="/users">Users</Link>
           </li>
           <li>
             <FaHistory className="sidebar-icon" />

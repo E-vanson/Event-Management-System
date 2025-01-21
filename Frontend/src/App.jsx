@@ -8,6 +8,7 @@ import CreatedEvents from "./components/CreatedEvents";
 import NewEvent from "./components/NewEvents";
 import PastEvents from "./components/PastEvents";
 import Templates from "./components/Templates";
+import Users from "./components/Users";
 
 const ProtectedRoutes = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -27,6 +28,14 @@ const App = () => {
           element={
             <ProtectedRoutes>
               <Home />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoutes>
+              <Users/>
             </ProtectedRoutes>
           }
         />
