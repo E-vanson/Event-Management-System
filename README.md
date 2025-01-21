@@ -35,7 +35,7 @@ Technical Features
         Role Based Access to endpoints  
 
 
-        Technology Stack
+  Technology Stack
 Frontend
 
     React framework 
@@ -65,8 +65,10 @@ Prerequisites
   Installation
 
   Clone the repository:
-  git clone https://github.com/E-vanson/Event-Management-System.git
-  cd Event-Management-System
+  
+          git clone https://github.com/E-vanson/Event-Management-System.git
+          
+          cd Event-Management-System
 
 Environment Variables    
 > Create a .env file in the /Backend directory
