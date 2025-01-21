@@ -74,6 +74,7 @@ Environment Variables
 > Create a .env file in the /Backend directory
 
 > Add the following variables:
+
                        PORT = "localhost"
                        DB_USERNAME = "username"
                        DB_PASSWORD = "password
@@ -83,10 +84,10 @@ Environment Variables
 
 Install dependencies:
 
-  npm install
+    npm install
 
 # Start Development Server
-  npm run dev
+    npm run dev
 
 
   API Documentation
