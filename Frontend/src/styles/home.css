@@ -1,19 +1,15 @@
 /* General styles */
-body {
+.dashboard-container {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 2rem;
   background-color: #f4f4f9;
   color: #333;
-}
-
-.dashboard-container {
-  padding: 2rem;
   max-width: 1200px;
   margin: auto;
 }
 
-h1 {
+.dashboard-container h1 {
   text-align: center;
   color: #333;
   margin-bottom: 2rem;
@@ -22,7 +18,7 @@ h1 {
   font-weight: 700;
 }
 
-h2 {
+.dashboard-container h2 {
   margin-top: 3rem;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -32,14 +28,14 @@ h2 {
 }
 
 /* Event list styles */
-.event-list {
+.dashboard-container .event-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: space-between; /* Align the cards neatly */
 }
 
-.event-card {
+.dashboard-container .event-card {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -51,13 +47,13 @@ h2 {
   min-width: 250px; /* Minimum width for the cards */
 }
 
-.event-card:hover {
+.dashboard-container .event-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Event image */
-.event-card img.event-image {
+.dashboard-container .event-card img.event-image {
   width: 100%;
   height: auto;
   display: block;
@@ -67,14 +63,14 @@ h2 {
 }
 
 /* Event details */
-.event-details {
+.dashboard-container .event-details {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.event-details h3 {
+.dashboard-container .event-details h3 {
   margin: 0;
   font-size: 1.5rem;
   color: #0077ff;
@@ -82,18 +78,18 @@ h2 {
   font-weight: 700;
 }
 
-.event-details .event-info {
+.dashboard-container .event-details .event-info {
   font-size: 0.9rem;
   line-height: 1.5;
   color: #555;
 }
 
-.event-details .event-info strong {
+.dashboard-container .event-details .event-info strong {
   color: #333;
 }
 
 /* Countdown styling */
-.event-details .event-info .countdown {
+.dashboard-container .event-details .event-info .countdown {
   color: #ff6347;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
@@ -101,14 +97,14 @@ h2 {
 }
 
 /* Buttons */
-.event-actions {
+.dashboard-container .event-actions {
   display: flex;
   justify-content: space-between;
   padding: 1rem 1.5rem;
   background-color: #f9f9f9;
 }
 
-button {
+.dashboard-container button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
@@ -120,37 +116,37 @@ button {
   gap: 0.5rem;
 }
 
-button:hover {
+.dashboard-container button:hover {
   transform: scale(1.05);
 }
 
-.btn-secondary {
+.dashboard-container .btn-secondary {
   background-color: #0077ff;
   color: #fff;
 }
 
-.btn-secondary:hover {
+.dashboard-container .btn-secondary:hover {
   background-color: #005bb5;
 }
 
-.btn-danger {
+.dashboard-container .btn-danger {
   background-color: #ff4d4d;
   color: #fff;
 }
 
-.btn-danger:hover {
+.dashboard-container .btn-danger:hover {
   background-color: #cc0000;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .event-card {
+  .dashboard-container .event-card {
     flex: 1 1 calc(50% - 1.5rem); /* 2 cards per row */
   }
 }
 
 @media (max-width: 480px) {
-  .event-card {
+  .dashboard-container .event-card {
     flex: 1 1 100%; /* Full width for smaller devices */
   }
 }

@@ -1,22 +1,22 @@
 /* General Styling */
-* {
+.signup-container * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-}
-
-body {
+  }
+  
+  .signup-container {
     background-color: #f4f7fc;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-}
-
-/* Main container for the entire SignUp page */
-.signup-container {
+  }
+  
+  /* Main container for the SignUp page */
+  .signup-container .signup-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,103 +25,103 @@ body {
     margin: auto;
     border-radius: 10px;
     overflow: hidden;
-}
-
-/* Form section */
-.form-wrapper {
-    width: 50vw;  /* Form takes 50% of the screen width */
+  }
+  
+  /* Form Section */
+  .signup-container .form-wrapper {
+    width: 50vw; /* Form takes 50% of the screen width */
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: transparent;  /* Removed background color */
-}
-
-.form-wrapper h1 {
+    background-color: transparent; /* Removed background color */
+  }
+  
+  .signup-container .form-wrapper h1 {
     font-size: 2.5rem;
     color: #2c3e50;
     margin-bottom: 15px;
-}
-
-.form-wrapper p {
+  }
+  
+  .signup-container .form-wrapper p {
     font-size: 1.1rem;
     color: #7f8c8d;
     margin-bottom: 30px;
-}
-
-.progress-bar {
+  }
+  
+  .signup-container .progress-bar {
     width: 100%;
     height: 5px;
     background-color: #ecf0f1;
     margin-bottom: 30px;
     border-radius: 5px;
     overflow: hidden;
-}
-
-.progress {
+  }
+  
+  .signup-container .progress {
     height: 100%;
     background-color: #1abc9c;
     transition: width 0.3s ease;
-}
-
-form {
+  }
+  
+  .signup-container form {
     width: 100%;
-}
-
-.form-group {
+  }
+  
+  .signup-container .form-group {
     margin-bottom: 20px;
     width: 100%;
-}
-
-.form-group label {
+  }
+  
+  .signup-container .form-group label {
     display: block;
     font-size: 1.1rem;
     color: #34495e;
     margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group select {
+  }
+  
+  .signup-container .form-group input,
+  .signup-container .form-group select {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #bdc3c7;
     border-radius: 5px;
     background-color: #ecf0f1;
-}
-
-button {
+  }
+  
+  .signup-container button {
     padding: 12px 20px;
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.btn-primary {
+  }
+  
+  .signup-container .btn-primary {
     background-color: #1abc9c;
     color: #fff;
     border: none;
-    width: 20%;  /* Make Sign Up button take 20% width */
+    width: 20%; /* Make Sign Up button take 20% width */
     padding: 12px 0; /* Equal padding */
-}
-
-.btn-primary:hover {
+  }
+  
+  .signup-container .btn-primary:hover {
     background-color: #16a085;
-}
-
-.btn-secondary {
+  }
+  
+  .signup-container .btn-secondary {
     background-color: #e74c3c;
     color: #fff;
     border: none;
-}
-
-.btn-secondary:hover {
+  }
+  
+  .signup-container .btn-secondary:hover {
     background-color: #c0392b;
-}
-
-.btn-login {
+  }
+  
+  .signup-container .btn-login {
     background-color: #3498db;
     color: #fff;
     padding: 10px 20px;
@@ -129,96 +129,96 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-}
-
-.btn-login:hover {
+  }
+  
+  .signup-container .btn-login:hover {
     background-color: #2980b9;
-}
-
-/* Button group for Back and Next buttons */
-.button-group {
+  }
+  
+  /* Button group for Back and Next buttons */
+  .signup-container .button-group {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-
-button[type="button"] {
-    width: 20%;  /* Buttons take 20% of the width */
+  }
+  
+  .signup-container button[type="button"] {
+    width: 20%; /* Buttons take 20% of the width */
     padding: 12px 0; /* Equal padding */
-}
-
-button[type="submit"] {
+  }
+  
+  .signup-container button[type="submit"] {
     width: 20%; /* Make the submit button take 20% width */
     padding: 12px 0; /* Equal padding */
     background-color: #1abc9c;
     color: white;
     border-radius: 5px;
     cursor: pointer;
-}
-
-/* Image Section */
-.image-wrapper {
-    width: 50vw;  /* Image section also takes 50% of the screen width */
+  }
+  
+  /* Image Section */
+  .signup-container .image-wrapper {
+    width: 50vw; /* Image section also takes 50% of the screen width */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #f4f7fc;
-}
-
-.signup-image {
+  }
+  
+  .signup-container .signup-image {
     width: 100%;
     max-width: 500px;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-    .signup-container {
-        flex-direction: column;  /* Stack the form and image vertically */
-        width: 90%;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .signup-container .signup-wrapper {
+      flex-direction: column; /* Stack the form and image vertically */
+      width: 90%;
     }
-
-    .form-wrapper {
-        width: 100%;
-        padding: 20px;
+  
+    .signup-container .form-wrapper {
+      width: 100%;
+      padding: 20px;
     }
-
-    .form-wrapper h1 {
-        font-size: 2rem;
+  
+    .signup-container .form-wrapper h1 {
+      font-size: 2rem;
     }
-
-    .progress-bar {
-        margin-bottom: 20px;
+  
+    .signup-container .progress-bar {
+      margin-bottom: 20px;
     }
-
-    .image-wrapper {
-        width: 100%;
-        margin-top: 20px;
+  
+    .signup-container .image-wrapper {
+      width: 100%;
+      margin-top: 20px;
     }
-
-    .signup-image {
-        max-width: 100%;
-        height: auto;
+  
+    .signup-container .signup-image {
+      max-width: 100%;
+      height: auto;
     }
-
-    .button-group {
-        flex-direction: column;
+  
+    .signup-container .button-group {
+      flex-direction: column;
     }
-
-    button[type="button"] {
-        width: 100%;  /* Buttons take full width on smaller screens */
-        margin-bottom: 10px;
+  
+    .signup-container button[type="button"] {
+      width: 100%; /* Buttons take full width on smaller screens */
+      margin-bottom: 10px;
     }
-}
-
-/* Error Message Styling */
-.form-group .error {
+  }
+  
+  /* Error Message Styling */
+  .signup-container .form-group .error {
     color: red;
     font-size: 0.875rem;
     margin-top: 0.25rem;
-    text-align: left;  /* Align error message to the left */
-    margin-left: 8px;  /* Small margin for positioning */
-}
-
+    text-align: left; /* Align error message to the left */
+    margin-left: 8px; /* Small margin for positioning */
+  }
+  
