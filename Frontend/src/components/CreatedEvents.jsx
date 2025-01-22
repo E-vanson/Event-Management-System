@@ -121,7 +121,7 @@ const CreatedEvents = () => {
             <br></br>
             {console.log("The image path: ", selectedEvent.imagePath)}
             
-            <img alt="Event Photo" src={`http://localhost:3000/${selectedEvent.imagePath}`} />
+            <img alt="Event Photo" src={`http://localhost:3000/assets/image-af105ca1-528d-43f6-b365-ead488d1f135-1737543534414.jpeg`} />
             <p><span className='bold'>Description:</span> {selectedEvent.description}</p>
             <p><span className='bold'>Venue:</span>{selectedEvent.venue}</p>
             <p><span className='bold'>Start Date And Time:</span>{new Date(selectedEvent.startDate).toLocaleString()}</p>
