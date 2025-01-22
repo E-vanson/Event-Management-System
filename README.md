@@ -65,7 +65,8 @@ Prerequisites
   Installation
 
   Clone the repository:
-          ** The complete code can be found in the main brach **
+  
+                          ** The complete code can be found in the main branch **
   
           git clone https://github.com/E-vanson/Event-Management-System.git
           
