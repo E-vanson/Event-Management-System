@@ -84,7 +84,7 @@ export const updateUser = async (req, res) => {
 
 
 export const deleteUser = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     const user = await User.findByPk(id);
@@ -94,7 +94,6 @@ export const deleteUser = async (req, res) => {
         message: `User to be deleted not found`,
       });
     }
-
     // Delete the user
     await user.destroy();
     console.log("User deleted successfully");
@@ -104,7 +103,7 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: "Error Deleting User!!: ",
-      error: err.message,
+      error: error.message,
     });
   }
 }

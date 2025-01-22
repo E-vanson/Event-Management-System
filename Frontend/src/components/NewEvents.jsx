@@ -480,7 +480,7 @@ const confirmDelete = async () => {
       <h3>Are you sure you want to delete this event?</h3>
       <div className="modal-actions">
         <button className="btn-primary" onClick={confirmDelete}>
-          Yes, Delete
+          Delete
         </button>
         <button className="btn-secondary" onClick={closeConfirmationDialog}>
           Cancel

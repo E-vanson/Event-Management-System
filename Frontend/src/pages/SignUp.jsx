@@ -13,6 +13,7 @@ const SignUp = () => {
     gender: "",
     email: "",
     password: "",
+    isAdmin: false
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(""); // For user feedback
@@ -207,6 +208,19 @@ const SignUp = () => {
                 />
                 {errors.password && <p className="error">{errors.password}</p>}
               </div>
+              <div className="form-group">
+        <label>
+          <input
+            type="checkbox"
+            name="isAdmin"
+            checked={formData.isAdmin}
+            onChange={(e) =>
+              setFormData({ ...formData, isAdmin: e.target.checked })
+            }
+          />
+          Make this user an admin
+        </label>
+      </div>
             </motion.div>
           )}
 

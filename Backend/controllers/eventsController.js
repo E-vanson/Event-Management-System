@@ -133,3 +133,58 @@ export const deleteEvent = async (req, res) => {
       });
     }
 }
+
+export const eventRegistration = async (req,res) => {
+  try {
+    const { eventId } = req.body;
+
+    console.log("The req body", req.body);
+    const authHeader = req.headers.authorization; 
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: Missing or invalid token" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).send("Not Authorized");
+    } 
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    const user = await User.findByPk(decoded.userId);
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "User Account Not Found"});
+    }
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      return res
+        .status(404)
+        .json({ message: "Event Not Found", });
+    }
+
+
+    const registeredEvents = user.registeredEvents || [];
+    if (registeredEvents.includes(eventId)) {
+      return res
+        .status(400)
+        .json({ message: "Already registered for the event", event: event });
+    }
+    registeredEvents.push(eventId);
+
+    await user.update({ registeredEvents });
+    return res
+      .status(200)
+      .json({ message: "Event registered Successfully", event: event });
+  } catch (error) {
+    console.error("Error in eventRegistration:", error);
+    throw new Error(error.message || "Error during event registration");
+  }
+};

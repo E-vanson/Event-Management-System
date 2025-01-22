@@ -5,15 +5,26 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [message, setMessage] = useState("")
 
   // Fetch events from backend on component mount
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/user/getUsers");
+        const response = await fetch("http://localhost:3000/user/getUsers", {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('AuthToken')}`,
+      },
+      credentials: 'include',
+    });
         const data = await response.json();
-        console.log("The Events Data....", data);
-        setUsers(data);
+        if (response.ok) {
+          setUsers(data.users);
+        }
+
+        
+        setMessage('Failed To Fetch users');
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -25,26 +36,41 @@ const Users = () => {
   console.log("Events length....", users);
 
   const handleView = (user) => {
-    setSelectedEvent(user);
+    setSelectedUser(user);
     setModalVisible(true);
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    setSelectedEvent(null);
+    setSelectedUser(null);
   };
 
-  const handleRegister = () => {
-    // Implement registration logic here
-    alert(`Registered for the event: ${selectedUser.name}`);
-    handleCloseModal(); // Close modal after registration
-  };
+  const handleDelete = async (index) => {
 
-  const handleDelete = (index) => {
-    // Implement delete logic
-    const updatedUsers = users.filter((_, i) => i !== index);
-    setUsers(updatedUsers);
-  };
+    try {
+      const response = await fetch(`http://localhost:3000/user/deleteUser/${index}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('AuthToken')}`,
+        },
+        credentials: 'include',
+      });
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setUsers(users.filter((_, i) => i !== index));
+        setMessage('Event deleted successfully');
+        alert("User Deleted Successfully");
+      } else {
+        setMessage('Failed to delete the usert');
+        alert(response.message);
+      }
+    } catch (error) {
+      setMessage('Failed to delete the user');
+      alert("Error Deleting User");
+    }
+  }
 
   const handleEdit = (index) => {
     // Implement edit logic
@@ -53,7 +79,7 @@ const Users = () => {
 
   return (
     <div className="event-list">
-      <h2>Created Events</h2>
+      <h2>Users</h2>
 
       {users.length > 0 ? (
         <table>
@@ -74,7 +100,7 @@ const Users = () => {
                 <td>{user.email}</td>
                 <td>{user.gender}</td>
                 <td>
-                  <button className="btn-primary" onClick={() => handleView(event)}>
+                  <button className="btn-primary" onClick={() => handleView(user)}>
                     View
                   </button>
                   {/* <button className="btn-secondary" onClick={() => handleEdit(index)}>
@@ -93,20 +119,20 @@ const Users = () => {
       )}
 
       {/* Modal to show event details */}
-      {modalVisible && selectedEvent && (
+      {modalVisible && selectedUser && (
         <div className="modal">
           <div className="modal-content">
-            <h3>{selectedUser.firstName}</h3>
-            <p>{selectedUser.lastName}</p>
-            <p>{selectedUser.email}</p>
-            <p>{selectedUser.gender}</p>
+            <h3>First Name: {selectedUser.firstName}</h3>
+            <p>Last Name: {selectedUser.lastName}</p>
+            <p>Email: {selectedUser.email}</p>
+            <p>Gender: {selectedUser.gender}</p>
 
             <div className="modal-actions">
               <button className="btn-secondary" onClick={handleCloseModal}>
                 Close
               </button>
-              <button className="btn-primary" onClick={handleRegister}>
-                Register
+              <button className="btn-primary" onClick={() => handleDelete(selectedUser?.id)} >
+                Delete
               </button>
             </div>
           </div>

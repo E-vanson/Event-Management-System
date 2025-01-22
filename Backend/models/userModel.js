@@ -34,8 +34,12 @@ const User = sequelizer.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("admin", "organizer", "attendee"),
+      type: DataTypes.ENUM("admin", "user"),
       allowNull: false,
+    },
+    registeredEvents: {
+      type: DataTypes.JSON, // Store registered events as JSON
+      defaultValue: [], // Initialize as an empty array
     },
     created_at: {
       type: DataTypes.DATE,

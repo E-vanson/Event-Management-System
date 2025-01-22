@@ -5,6 +5,7 @@ const CreatedEvents = () => {
   const [events, setEvents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [message, setMessage] = useState("");
 
   // Fetch events from backend on component mount
   useEffect(() => {
@@ -34,10 +35,33 @@ const CreatedEvents = () => {
     setSelectedEvent(null);
   };
 
-  const handleRegister = () => {
-    // Implement registration logic here
-    alert(`Registered for the event: ${selectedEvent.name}`);
-    handleCloseModal(); // Close modal after registration
+  const handleRegister = async (eventId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/event/register`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('AuthToken')}`,
+        },
+        body: JSON.stringify({eventId: eventId}),
+        credentials: 'include',
+      });
+
+      const data = await response.json()
+
+      if (response.ok) {        
+        setMessage('Event Registered successfully');
+        alert(data.message);
+      } else {
+        setMessage('Failed to register the event');
+        alert(data.message);
+      }
+
+      setModalVisible(false);
+    } catch (error) {
+      setMessage('Failed to register event');
+      alert("Error Registering  Event");
+    }
   };
 
   const handleDelete = (index) => {
@@ -108,7 +132,7 @@ const CreatedEvents = () => {
               <button className="btn-secondary" onClick={handleCloseModal}>
                 Close
               </button>
-              <button className="btn-primary" onClick={handleRegister}>
+              <button className="btn-primary" onClick={() => handleRegister(selectedEvent.id)}>
                 Register
               </button>
             </div>

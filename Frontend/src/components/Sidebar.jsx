@@ -25,14 +25,14 @@ const Sidebar = () => {
             <FaUser className="sidebar-icon" />
             <Link to="/users">Users</Link>
           </li>
-          <li>
+          {/* <li>
             <FaHistory className="sidebar-icon" />
             <Link to="/past-events">Past Events</Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <FaFileAlt className="sidebar-icon" />
             <Link to="/templates">Templates</Link>
-          </li>
+          </li> */}
           <li>
             <FaSignInAlt className="sidebar-icon" />
             <Link to="/login">Login</Link>

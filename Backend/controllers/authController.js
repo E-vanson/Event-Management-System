@@ -9,7 +9,7 @@ import generateToken from "../utils/generateToken.js";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, gender, email, password } = req.body;
+    const { firstName, lastName, gender, email, password, isAdmin} = req.body;
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -27,6 +27,8 @@ export const register = async (req, res) => {
       });
     }
 
+    const role = isAdmin ? "admin" : "user";
+
     const newUser = await User.create({
       firstName: firstName,
       lastName: lastName,
@@ -34,7 +36,7 @@ export const register = async (req, res) => {
       gender,
       gender,
       password: hashedPassword,
-      role: "admin",
+      role: role,
     });
     console.log("User created:", newUser);
     return res.status(201).json({
