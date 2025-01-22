@@ -201,7 +201,7 @@ const Dashboard = () => {
     image: "",
   });
   const [editIndex, setEditIndex] = useState(null);
-  const [formVisible, setFormVisible] = useState(false);  // New state for form visibility
+  const [formVisible, setFormVisible] = useState(false); 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
 

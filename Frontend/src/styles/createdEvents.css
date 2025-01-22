@@ -12,6 +12,10 @@
 }
 
 .modal-content {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -35,6 +39,8 @@
 .btn-primary {
     background-color: #1abc9c;
     color: white;
+    width: 100%;
+    height: 90%;
 }
 
 .btn-secondary {
@@ -45,4 +51,29 @@
 .btn-danger {
     background-color: #e74c3c;
     color: white;
+}
+
+.table{
+    margin: 8px;
+    width: fit-content;
+
+}
+
+.table th {
+    height: 20px;
+    border-bottom: 1px solid black;
+
+}
+
+.table td {
+    height: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+}
+
+.bold {
+    font-weight: 600;
+    
+
 }

@@ -13,17 +13,13 @@ const CreatedEvents = () => {
       try {
         const response = await fetch("http://localhost:3000/event/getEvents");
         const data = await response.json();
-        console.log("The Events Data....", data);
         setEvents(data.events);
       } catch (error) {
-        console.error("Error fetching events:", error);
+        alert("Error Fetching Event");
       }
     };
-
     fetchEvents();
   }, []);
-
-  console.log("Events length....", events);
 
   const handleView = (event) => {
     setSelectedEvent(event);
@@ -80,7 +76,7 @@ const CreatedEvents = () => {
       <h2>Created Events</h2>
 
       {events.length > 0 ? (
-        <table>
+        <table className='table'>
           <thead>
             <tr>
               <th>Name</th>
@@ -93,10 +89,11 @@ const CreatedEvents = () => {
           <tbody>
             {events.map((event, index) => (
               <tr key={index}>
+                {console.log("The event", event)}
                 <td>{event.name}</td>
                 <td>{event.venue}</td>
-                <td>{event.startDate}</td>
-                <td>{event.endDate}</td>
+                <td>{new Date(event.startDate).toLocaleString()}</td>
+                <td>{new Date(event.endDate).toLocaleString()}</td>
                 <td>
                   <button className="btn-primary" onClick={() => handleView(event)}>
                     View
@@ -120,11 +117,15 @@ const CreatedEvents = () => {
       {modalVisible && selectedEvent && (
         <div className="modal">
           <div className="modal-content">
-            <h3>{selectedEvent.name}</h3>
-            <p>{selectedEvent.description}</p>
-            <p>{selectedEvent.venue}</p>
-            <p>Start Date: {selectedEvent.startDate}</p>
-            <p>End Date: {selectedEvent.endDate}</p>
+            <h3>Event: {selectedEvent.name}</h3>
+            <br></br>
+            {console.log("The image path: ", selectedEvent.imagePath)}
+            
+            <img alt="Event Photo" src={`http://localhost:3000/${selectedEvent.imagePath}`} />
+            <p><span className='bold'>Description:</span> {selectedEvent.description}</p>
+            <p><span className='bold'>Venue:</span>{selectedEvent.venue}</p>
+            <p><span className='bold'>Start Date And Time:</span>{new Date(selectedEvent.startDate).toLocaleString()}</p>
+            <p><span className='bold'>End Date And Time:</span>{new Date(selectedEvent.endDate).toLocaleString()}</p>
             {selectedEvent.image && (
               <img src={URL.createObjectURL(selectedEvent.image)} alt="Event" />
             )}

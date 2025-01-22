@@ -14,4 +14,4 @@ router.get("/getEvents", getEvents);
 router.delete("/deleteEvent/:id", verifyToken(["admin"]), deleteEvent);
 router.post("/register", verifyToken(["admin", "user"]), eventRegistration);
 
-export default router;
+export default router; 
