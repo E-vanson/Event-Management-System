@@ -99,9 +99,18 @@ Event Endpoints
     GET /event/[id] - Get specific event
     PUT /event/updateEvent/:id - Update event (Admin only)
     DELETE /event/deleteEvent/:id - Delete event (Admin only)
+    POST /event/register - Register For An event
 
   Auth Endpoints
 
     POST /auth/register - Create and Register User
     POST /auth/login - Login User
+
+  User Endpoints
+
+    GET /user/getUsers - Get all users (Admin only)
+    POST /user/createUser - Create new user (Admin only)
+    GET /user/[id] - Get specific user
+    PUT /user/updateUser/:id - Update user (Admin only)
+    DELETE /user/deleteUser/:id - Delete user (Admin only)
 
