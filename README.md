@@ -1,5 +1,5 @@
   # Event Management System 
-  A modern event registration platform built with React js, featuring real time event registration, authorization and authentication.
+  A modern event registration platform built with React and node js, featuring real time event registration, authorization and authentication.
 
   # Features
 
@@ -65,6 +65,7 @@ Prerequisites
   Installation
 
   Clone the repository:
+          ** The complete code can be found in the main brach **
   
           git clone https://github.com/E-vanson/Event-Management-System.git
           
