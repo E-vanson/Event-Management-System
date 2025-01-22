@@ -1,78 +1,140 @@
-/* Sidebar Styling */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  
-  .sidebar-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  
-  .sidebar-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  transition: width 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+
+.sidebar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background-color: #444;
+}
+
+.sidebar-item.active {
+  background-color: #555; /* Active tab color */
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+  transition: color 0.3s ease;
+}
+
+.sidebar-item a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.sidebar-item a:hover {
+  color: #4caf50; /* Change link color on hover */
+}
+
+.sidebar-item .sidebar-icon:hover {
+  color: #4caf50; /* Change icon color on hover */
+}
+
+.sidebar-link {
+  color: inherit; /* Inherit color from parent */
+  font-weight: 500;
+}
+
+.sidebar-link.active {
+  color: #4caf50; /* Color for the active link */
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  transition: background-color 0.3s ease;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar-item.active {
+  background-color: #555; /* Active tab background color */
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.sidebar-item:hover .sidebar-icon,
+.sidebar-item.active .sidebar-icon {
+  color: #4caf50; /* Highlight icon on hover or when active */
+}
+
+.sidebar-link {
+  color: inherit;
+  font-weight: 500;
+}
+
+.sidebar-link.active {
+  color: #4caf50; /* Highlight text when active */
+}
+
+.sidebar.collapsed .sidebar-link {
+  display: none; /* Hide text when collapsed */
+}
+
+.sidebar.collapsed .sidebar-icon {
+  margin-right: 0; /* Remove margin for collapsed icons */
+  text-align: center;
+  width: 100%;
+}
+
+.center-icon {
+  justify-content: center;
+}
+
+.sidebar-item:hover {
+  background-color: #444; /* Background color on hover */
+}
+
+
+/* For smaller screens */
+@media screen and (max-width: 768px) {
+  .sidebar {
     width: 100%;
+    height: auto;
+    position: static;
   }
-  
-  .sidebar-nav ul {
-    list-style: none;
-    padding: 0;
+
+  .sidebar.collapsed {
+    display: none;
   }
-  
-  .sidebar-nav li {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
-  }
-  
-  .sidebar-nav li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 1rem;
-    margin-left: 10px;
-    transition: color 0.3s ease;
-  }
-  
-  .sidebar-nav li a:hover {
-    color: #1abc9c;
-  }
-  
-  .sidebar-icon {
-    font-size: 1.5rem;
-  }
-  
-  .sidebar-nav li:hover .sidebar-icon {
-    color: #1abc9c;
-  }
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 200px;
-      position: fixed;
-      transform: translateX(-250px);
-      transition: transform 0.3s ease;
-    }
-  
-    .sidebar.open {
-      transform: translateX(0);
-    }
-  
-    .sidebar-toggle {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 1.5rem;
-      color: #2c3e50;
-      cursor: pointer;
-      z-index: 10;
-    }
-  }
-    
+}

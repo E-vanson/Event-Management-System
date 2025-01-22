@@ -1,60 +1,37 @@
-/* Main layout container */
 .layout-container {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  /* Sidebar styling */
-  .sidebar {
-    width: 250px;
-    height: 100%;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    display: flex;
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.layout-main {
+  flex-grow: 1;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease, padding-left 0.3s ease;
+  margin-left: 250px; /* Sidebar width when expanded */
+}
+
+.layout-container.sidebar-collapsed .layout-main {
+  margin-left: 80px; /* Sidebar width when collapsed */
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .layout-container {
     flex-direction: column;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
   }
-  
-  /* Main content area */
+
   .layout-main {
-    margin-left: 250px; /* Matches the sidebar width */
-    width: calc(100% - 250px); /* Dynamic width minus sidebar */
-    background-color: #f4f7fc;
-    padding: 20px;
-    overflow-y: auto;
+    margin-left: 0;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 200px;
-      transform: translateX(-200px);
-      transition: transform 0.3s ease-in-out;
-    }
-  
-    .sidebar.open {
-      transform: translateX(0);
-    }
-  
-    .layout-main {
-      margin-left: 0;
-      width: 100%;
-    }
-  
-    .sidebar-toggle {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      font-size: 1.5rem;
-      color: #2c3e50;
-      z-index: 20;
-      cursor: pointer;
-    }
+
+  .layout-container.sidebar-collapsed .layout-main {
+    margin-left: 0; /* Ensure no margin on small devices */
   }
-  
+}

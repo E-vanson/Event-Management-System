@@ -1,240 +1,154 @@
-
-/* General Styling */
+/* General styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .dashboard-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  h1, h2 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Form Styling */
-  .event-form {
-      background-color: white;
-      padding: 10px;
-      border-radius: 8px;
-      width: 450px;
-      max-width: 100%;
-      max-height: 70vh;
-      overflow-y: auto;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      animation: slideIn 0.3s ease-out;
-      position: fixed;
-  }
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
 
-    @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-  
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-  
-  .event-form .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .event-form .form-group label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #34495e;
-  }
-  
-  .event-form .form-group input,
-  .event-form .form-group textarea,
-  .event-form .form-group button {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #bdc3c7;
-    border-radius: 5px;
-    background: #ecf0f1;
-  }
-  
-  .event-form .form-group textarea {
-    resize: none;
-    height: 100px;
-  }
-  
-  .event-form button {
-    background-color: #1abc9c;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .event-form button:hover {
-    background-color: #16a085;
-  }
-  
-  /* Event List Styling */
-  .event-list {
-    margin-top: 30px;
-  }
-  
-  .event-list h2 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #555;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/* Event list styles */
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.event-card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1 1 calc(25% - 1.5rem); /* 4 cards per row */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Event image */
+.event-card img.event-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  margin: 0;
+  border: none;
+}
+
+/* Event details */
+.event-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.event-details h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #0077ff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.event-details .event-info {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.event-details .event-info strong {
+  color: #333;
+}
+
+/* Countdown styling */
+.event-details .event-info .countdown {
+  color: #ff6347;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Buttons */
+.event-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: #0077ff;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #005bb5;
+}
+
+.btn-danger {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #cc0000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .event-card {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 15px;
-    margin-bottom: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(50% - 1.5rem); /* 2 cards per row */
   }
-  
-  .event-card .event-image {
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 15px;
-  }
-  
-  .event-card .event-details {
-    flex: 1;
-  }
-  
-  .event-card .event-details h3 {
-    margin: 0 0 5px 0;
-    color: #34495e;
-    font-size: 1.2rem;
-  }
-  
-  .event-card .event-details p {
-    margin: 5px 0;
-    color: #7f8c8d;
-  }
-  
-  .event-card .event-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .event-card .btn-secondary,
-  .event-card .btn-danger {
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .event-card .btn-secondary {
-    background-color: #3498db;
-    color: white;
-  }
-  
-  .event-card .btn-secondary:hover {
-    background-color: #2980b9;
-  }
-  
-  .event-card .btn-danger {
-    background-color: #e74c3c;
-    color: white;
-  }
-  
-  .event-card .btn-danger:hover {
-    background-color: #c0392b;
-  }
-  
-  /* No Events Message */
-  .event-list p {
-    text-align: center;
-    color: #7f8c8d;
-    font-size: 1rem;
-  }
+}
 
-    .btn-close {
-      position: absolute;
-      padding: 10px;
-      top: 10px;
-      right: 10px;
-      background-color: transparent;
-      border: none;
-      font-size: 1rem;
-      color: #333;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-  
-    .btn-close:hover {
-      color: red;
-    }
-  
-
-        .confirmation-modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;   
-          background-color: transparent;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 1000;
-        }
-    
-        .modal-content {
-          background: #fff;
-          padding: 20px;
-          border-radius: 8px;
-          text-align: center;
-        }
-    
-        .modal-actions {
-          margin-top: 20px;
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-        }
-    
-        .modal-actions .btn-primary {
-          background: #d9534f;
-          color: #fff;
-          border: none;
-          padding: 10px 20px;
-          cursor: pointer;
-        }
-    
-        .modal-actions .btn-secondary {
-          background: #5bc0de;
-          color: #fff;
-          border: none;
-          padding: 10px 20px;
-          cursor: pointer;
-        }
+@media (max-width: 480px) {
+  .event-card {
+    flex: 1 1 100%; /* Full width */
+  }
+}
