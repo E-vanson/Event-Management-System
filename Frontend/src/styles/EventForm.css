@@ -1,0 +1,106 @@
+/* Event Form Styling */
+.event-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: transparent;
+   
+    
+    
+}
+
+.event-form .form-title {
+    
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.event-form .form-step {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    
+    margin-bottom: 20px;
+}
+
+.event-form .form-group {
+    margin-bottom: 15px;
+}
+
+.event-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.event-form input,
+.event-form textarea {
+    width: 90%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #ffffff;
+}
+
+.event-form textarea {
+    resize: none;
+    height: 100px;
+}
+
+.event-form .icon {
+    margin-right: 8px;
+    vertical-align: middle;
+    color: #007bff;
+}
+
+.event-form .file-input {
+    margin-top: 10px;
+}
+
+.event-form button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.event-form button:hover {
+    background-color: #0056b3;
+}
+
+.event-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.event-form .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-form .prev-btn,
+.event-form .next-btn {
+    background-color: #6c757d;
+}
+
+.event-form .prev-btn:hover,
+.event-form .next-btn:hover {
+    background-color: #5a6268;
+}
+
+.event-form .submit-btn {
+    background-color: #28a745;
+}
+
+.event-form .submit-btn:hover {
+    background-color: #218838;
+}

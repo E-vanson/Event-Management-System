@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import "../styles/Layout.css";
 
 const Layout = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
 
+  // Function to toggle sidebar
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((prevState) => !prevState);
   };
 
   return (
-    <div className={`layout-container ${isSidebarOpen ? "sidebar-open" : "sidebar-collapsed"}`}>
+    <div className="main-layout">
+      {/* Pass the state and toggle function to the Sidebar */}
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className="layout-main">
-      
+      {/* Main content area */}
+      <main className={`main-content ${isSidebarOpen ? "" : "collapsed"}`}>
         {children}
-      </div>
+      </main>
     </div>
   );
 };
 
 export default Layout;
+

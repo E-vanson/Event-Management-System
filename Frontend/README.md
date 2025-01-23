@@ -12,3 +12,4 @@ npm install react-hook-form yup @hookform/resolvers
 npm install react-icons
 npm install axios
 npm install framer-motion react-icons moment
+npm install react-slick slick-carousel

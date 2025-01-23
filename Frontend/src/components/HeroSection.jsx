@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/HeroSection.css";
-import logo from "../assets/loginlogo.png"; // Replace with the path to your logo
+import logo from "../assets/loginlogo.png"; 
 
 const HeroSection = () => {
   return (

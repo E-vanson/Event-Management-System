@@ -17,7 +17,6 @@ import "../styles/sidebar.css";
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Handle screen size changes
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
@@ -113,7 +112,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 const SidebarItem = ({ to, icon, label, isSidebarOpen }) => {
   return (
     <li className="main-sidebar__item" title={label}>
-      <NavLink to={to} className="main-sidebar__icon-link">
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          isActive ? "main-sidebar__link main-sidebar__link--active" : "main-sidebar__link"
+        }
+      >
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -121,16 +125,8 @@ const SidebarItem = ({ to, icon, label, isSidebarOpen }) => {
         >
           {icon}
         </motion.div>
+        {isSidebarOpen && <span>{label}</span>}
       </NavLink>
-      {isSidebarOpen && (
-        <NavLink
-          to={to}
-          className="main-sidebar__link"
-          activeClassName="main-sidebar__link--active"
-        >
-          {label}
-        </NavLink>
-      )}
     </li>
   );
 };

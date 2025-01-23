@@ -3,12 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
-import Home from "./pages/home";
-import UpcomingEvents from "./components/UpcomingEvents";
-import NewEvent from "./components/NewEvents";
-import PastEvents from "./components/PastEvents";
-import Templates from "./components/Templates";
-import Users from "./components/Users";
+import Home from "./pages/Home";
+import UpcomingEvents from "./pages/UpcomingEvents";
+import NewEvent from "./pages/NewEvents";
+import PastEvents from "./pages/PastEvents";
+import Templates from "./pages/Templates";
+import Users from "./pages/Users";
+import CreatedEvents from "./pages/CreatedEvents";
+
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"; 
+
 
 const ProtectedRoutes = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -43,7 +48,7 @@ const App = () => {
           path="/created-events"
           element={
             <ProtectedRoutes>
-              <UpcomingEvents />
+              <CreatedEvents />
             </ProtectedRoutes>
           }
         />
