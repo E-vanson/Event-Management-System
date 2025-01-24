@@ -116,3 +116,11 @@ Event Endpoints
     PUT /user/updateUser/:id - Update user (Admin only)
     DELETE /user/deleteUser/:id - Delete user (Admin only)
 
+
+  # Challenges Faced:
+  Authentication:
+  > Encounted a challenge using cookies for token storage and handling sessions
+  > At times the cookie would be set in the request object and user can not be authenticated
+
+  
+

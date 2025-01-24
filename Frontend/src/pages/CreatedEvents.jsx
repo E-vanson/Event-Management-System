@@ -1,30 +1,12 @@
-import React from 'react'
-import EventList from '../components/EventList'
-import useEvents from '../hooks/useEvents'
-const CreatedEvents = () => {
-  const { events, loading, error, createEvent, updateEvent, deleteEvent } = useEvents(
-    "http://localhost:3000/event"
-  );
-  const handleEdit = (event) => {
-    setEditId(event.id);
-    setFormData({
-      name: event.name,
-      description: event.description,
-      venue: event.venue,
-      startDate: event.startDate,
-      endDate: event.endDate,
-      image: null,
-    });
-  };
+import React from "react";
+import EventList from "../components/EventList";
 
-  const handleDelete = async (eventId) => {
-    await deleteEvent(eventId);
-  };
+const CreatedEvents = () => {
   return (
     <div>
-      <EventList events={events} onEdit={handleEdit} onDelete={handleDelete} />
+      <EventList />
     </div>
-  )
-}
+  );
+};
 
-export default CreatedEvents
+export default CreatedEvents;

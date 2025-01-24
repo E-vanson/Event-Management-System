@@ -13,3 +13,5 @@ npm install react-icons
 npm install axios
 npm install framer-motion react-icons moment
 npm install react-slick slick-carousel
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material

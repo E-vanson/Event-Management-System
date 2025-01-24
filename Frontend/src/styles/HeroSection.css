@@ -12,36 +12,36 @@
     color: #ffffff;
   }
   
-  .hero-content {
+  .hero-section .hero-content {
     max-width: 600px;
     padding: 20px;
   }
   
-  .hero-logo {
+  .hero-section .hero-logo {
     width: 120px;
     height: auto;
     margin-bottom: 20px;
   }
   
-  .hero-title {
+  .hero-section .hero-title {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 20px;
   }
   
-  .hero-description {
+  .hero-section  .hero-description {
     font-size: 1.2rem;
     line-height: 1.6;
     margin-bottom: 30px;
   }
   
-  .hero-buttons {
+  .hero-section .hero-buttons {
     display: flex;
     gap: 15px;
     justify-content: center;
   }
   
-  .btn-primary {
+  .hero-section .btn-primary {
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold;
@@ -53,11 +53,11 @@
     transition: background-color 0.3s;
   }
   
-  .btn-primary:hover {
+  .hero-section .btn-primary:hover {
     background-color: #e66950;
   }
   
-  .btn-secondary {
+  .hero-section  .btn-secondary {
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold;
@@ -69,7 +69,7 @@
     transition: color 0.3s, background-color 0.3s;
   }
   
-  .btn-secondary:hover {
+  .hero-section  .btn-secondary:hover {
     background-color: #ff7a59;
     color: #ffffff;
   }

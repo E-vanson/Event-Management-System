@@ -1,78 +1,82 @@
-import React from "react";
+// src/components/UpcomingEvents.jsx
+import React, { useState } from "react";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import useEvents from "../hooks/useEvents";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import "../styles/EventList.css"; // Make sure to import the styles if necessary
+
+const apiUrl = "http://localhost:3000/event"; // API base URL
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  maxWidth: 345,
+  margin: theme.spacing(2),
+}));
 
 const UpcomingEvents = () => {
-  const apiUrl = "http://localhost:3000/event"; // Set the correct API URL
-  const { events, loading, error } = useEvents(apiUrl); // Using the hook to fetch events
+  const { events, loading, error, deleteEvent } = useEvents(apiUrl); // Use custom hook
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  if (loading) return <p>Loading...</p>; // Display loading text
-  if (error) return <p>{error}</p>; // Display any error
-
-  // Filter upcoming events (those with start date in the future)
-  const upcomingEvents = events.filter((event) => {
-    const now = new Date();
-    const startDate = new Date(event.startDate);
-    return startDate > now; // Only upcoming events
-  });
+  const handleDelete = (eventId) => {
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      deleteEvent(eventId);
+    }
+  };
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
     return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
   };
 
-  const calculateStatus = (startDate, endDate) => {
-    const now = new Date();
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography color="error">{error}</Typography>;
 
-    if (now < start) {
-      const timeDiff = start - now; // Difference in milliseconds
-      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      return `Starts in ${hours} hrs ${minutes} mins`;
-    } else if (now > end) {
-      return "Ended";
-    } else {
-      return "Ongoing";
-    }
-  };
+  const upcomingEvents = events.filter((event) => new Date(event.startDate) > new Date());
 
   return (
-    <div className="upcoming-events-container">
-      <h2>Upcoming Events</h2>
+    <div>
+      <Typography variant="h4" gutterBottom>
+        Upcoming Events
+      </Typography>
       {upcomingEvents.length === 0 ? (
-        <p>No upcoming events found.</p>
+        <Typography>No upcoming events found.</Typography>
       ) : (
-        <div className="event-list">
-          {upcomingEvents.map((event) => (
-            <div className="event-card" key={event.id}>
-              <h3>{event.name}</h3>
-              <p>{event.description}</p>
-              <p>
+        upcomingEvents.map((event) => (
+          <StyledCard key={event.id}>
+            <CardHeader
+              avatar={<Avatar sx={{ bgcolor: red[500] }}>{event.name.charAt(0)}</Avatar>}
+              title={event.name}
+              subheader={`Starts: ${formatDate(event.startDate)}`}
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {event.description}
+              </Typography>
+              <Typography variant="body2">
                 <strong>Venue:</strong> {event.venue}
-              </p>
-              <p>
-                <strong>Start:</strong> {formatDate(event.startDate)}
-              </p>
-              <p>
-                <strong>End:</strong> {formatDate(event.endDate)}
-              </p>
-              <p className={`event-status ${calculateStatus(event.startDate, event.endDate).toLowerCase()}`}>
-                <strong>Status:</strong> {calculateStatus(event.startDate, event.endDate)}
-              </p>
-              <div className="event-actions">
-                <button className="edit-btn">
-                  <FaEdit /> Edit
-                </button>
-                <button className="delete-btn">
-                  <FaTrashAlt /> Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton onClick={() => setSelectedEvent(event)} aria-label="edit event">
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => handleDelete(event.id)} aria-label="delete event">
+                <DeleteIcon />
+              </IconButton>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+            </CardActions>
+          </StyledCard>
+        ))
       )}
     </div>
   );

@@ -4,21 +4,21 @@
     min-height: 100vh;
   }
   
-  .past-events-title {
+  .past-events-container .past-events-title {
     text-align: center;
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
   }
   
-  .event-list {
+  .past-events-container .event-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
   }
   
-  .event-card {
+  .past-events-container .event-card {
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -30,38 +30,38 @@
     transition: transform 0.3s ease;
   }
   
-  .event-card:hover {
+  .past-events-container .event-card:hover {
     transform: translateY(-5px);
   }
   
-  .event-image {
+  .past-events-container  .event-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
   }
   
-  .event-details {
+  .past-events-container  .event-details {
     padding: 15px;
   }
   
-  .event-title {
+  .past-events-container  .event-title {
     font-size: 1.5rem;
     color: #333;
     margin: 0;
   }
   
-  .event-description {
+  .past-events-container .event-description {
     font-size: 1rem;
     color: #666;
     margin: 10px 0;
   }
   
-  .event-meta {
+  .past-events-container .event-meta {
     font-size: 0.9rem;
     color: #999;
   }
   
-  .event-actions {
+  .past-events-container .event-actions {
     display: flex;
     justify-content: space-between;
     padding: 10px 15px;
@@ -69,7 +69,7 @@
     border-top: 1px solid #ddd;
   }
   
-  .icon-button {
+  .past-events-container  .icon-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,19 +83,19 @@
     transition: background-color 0.3s ease;
   }
   
-  .icon-button:hover {
+  .past-events-container  .icon-button:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
   
-  .reschedule-button {
+  .past-events-container  .reschedule-button {
     color: #007bff;
   }
   
-  .delete-button {
+  .past-events-container  .delete-button {
     color: #dc3545;
   }
   
-  .no-events-message {
+  .past-events-container  .no-events-message {
     text-align: center;
     font-size: 1.2rem;
     color: #999;

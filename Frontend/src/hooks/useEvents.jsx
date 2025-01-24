@@ -29,33 +29,34 @@ const useEvents = (apiUrl) => {
         },
         body: formData,
       });
-
+  
       if (response.ok) {
         const newEvent = await response.json();
         setEvents((prev) => [...prev, newEvent]);
         setError(null);
       } else {
-        throw new Error("Failed to create event");
+        const errorDetails = await response.json();
+        throw new Error(errorDetails.message || "Failed to create event");
       }
     } catch (err) {
       setError(err.message);
     }
   };
+  
 
   const updateEvent = async (eventId, formData) => {
     try {
       const response = await fetch(`${apiUrl}/updateEvent/${eventId}`, {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AuthToken")}`,
-        },
+        headers: getAuthHeaders(),
         body: formData,
       });
-
+  
       if (response.ok) {
+        const updatedEvent = await response.json();
         setEvents((prev) =>
           prev.map((event) =>
-            event.id === eventId ? { ...event, ...formData } : event
+            event.id === eventId ? { ...event, ...updatedEvent } : event
           )
         );
         setError(null);
@@ -66,6 +67,7 @@ const useEvents = (apiUrl) => {
       setError(err.message);
     }
   };
+  
 
   const deleteEvent = async (eventId) => {
     try {
