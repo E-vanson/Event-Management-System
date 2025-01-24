@@ -8,9 +8,9 @@ import { eventRegistration } from "../controllers/eventsController.js";
 
 const router = express.Router();
 
-// router.post("/createEvent", createEvent);
+router.post("/createEvent", createEvent);
 router.get("/getEvents", getEvents);
-// router.put("/updateEvent", updateEvent);
+router.put("/updateEvent", updateEvent);
 router.delete("/deleteEvent/:id", verifyToken(["admin"]), deleteEvent);
 router.post("/register", verifyToken(["admin", "user"]), eventRegistration);
 
