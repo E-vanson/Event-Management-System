@@ -1,147 +1,217 @@
-.event-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center; /* Center the cards */
-  margin: 20px auto;
-  max-width: 1200px;
-  padding: 10px;
-}
-
-/* Event Card */
-.event-list .event-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  flex: 1 1 calc(25% - 15px); /* Ensure 4 cards per row with gaps accounted */
-  min-width: 220px; /* Prevent overshrinking */
-  max-width: 250px; /* Prevent overgrowth */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Hide any overflow */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.event-list .event-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Image Section (40% Height) */
-.event-list .event-card .event-image {
-  width: 100%;
-  height: 40%; /* Allocate 40% of the card's height */
-  background-color: #f3f3f3;
-  object-fit: cover; /* Ensure images scale nicely */
-  border-bottom: 1px solid #ddd;
-}
-
-/* Content Section */
-.event-list .event-card .event-content {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 60%; /* Remaining 60% for content */
-}
-
-/* Title */
-.event-list .event-card h3 {
-  margin: 0 0 5px;
-  color: #0056b3;
-  font-size: 0.9rem; /* Small font size */
-  font-weight: 600;
-  text-transform: uppercase;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* Description */
-.event-list .event-card p {
-  margin: 5px 0;
-  color: #666;
-  line-height: 1.3; /* Tighter line height for small fonts */
-  font-size: 0.75rem; /* Very small font size */
-  font-family: 'Roboto', sans-serif;
-  text-align: justify;
-  flex-grow: 1;
-}
-
-/* Event Status */
-.event-list .event-status {
-  font-weight: bold;
-  margin-top: 5px;
-  font-size: 0.8rem; /* Small font size */
-  text-align: center;
-}
-
-/* Action Buttons */
-.event-list .event-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  margin-top: 10px;
-}
-/* src/styles/EventList.css */
-.event-image {
-  width: 100%;   /* or set a specific width */
-  height: auto;  /* maintain aspect ratio */
-  border-radius: 8px;
-  object-fit: cover; /* Ensure the image covers the container */
-  margin-bottom: 15px; /* Space between image and description */
-}
-
-
-.event-list .event-actions button {
-  flex: 1;
-  border: none;
-  border-radius: 5px;
-  padding: 6px;
-  cursor: pointer;
-  font-size: 0.7rem; /* Very small button text */
-  transition: background 0.3s ease, transform 0.2s ease;
+/* General Reset */
+body, h3, p, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Arial', sans-serif;
 }
 
-.event-list .event-actions button:hover {
-  transform: scale(1.05); /* Subtle hover effect */
+.events-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
 }
 
-.event-list .edit-btn {
-  background: #007bff;
-  color: white;
+/* Event Card Styling */
+.event-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.event-list .edit-btn:hover {
-  background: #0056b3;
+/* Event Image */
+.event-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-.event-list .delete-btn {
-  background: #dc3545;
-  color: white;
+/* Event Info Section */
+.event-info {
+  padding: 15px;
 }
 
-.event-list .delete-btn:hover {
-  background: #a71d2a;
+.event-name {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 992px) {
-  .event-list .event-card {
-    flex: 1 1 calc(33.33% - 15px); /* 3 cards per row */
-  }
+.event-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 10px;
 }
 
+.event-status {
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status-upcoming {
+  color: #007bff; /* Blue for upcoming events */
+}
+
+.status-started {
+  color: #28a745; /* Green for started events */
+}
+
+.status-ended {
+  color: #dc3545; /* Red for ended events */
+}
+
+/* Event Actions Section */
+.event-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+}
+
+.favorite-icon {
+  font-size: 2rem; /* Bigger favorite icon */
+  cursor: pointer;
+  color: #ffc107;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.4); /* Increase the scale for hover effect */
+  color: #e0a800;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-button {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #138496;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #bd2130;
+}
+
+.view-button {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.view-button:hover {
+  background-color: #218838;
+}
+
+/* Modal Styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+}
+
+.modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-button.confirm {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.modal-button.cancel {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.loading,
+.error {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #555;
+  padding: 20px;
+}
+
+.no-events {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+  margin: 20px 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .event-list .event-card {
-    flex: 1 1 calc(50% - 15px); /* 2 cards per row */
+  .event-card {
+    flex-direction: column;
   }
-}
 
-@media (max-width: 576px) {
-  .event-list .event-card {
-    flex: 1 1 100%; /* Full width on small screens */
+  .event-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
   }
 }

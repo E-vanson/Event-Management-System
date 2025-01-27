@@ -11,6 +11,7 @@ const useEvents = (apiUrl) => {
     try {
       const response = await fetch(`${apiUrl}/getEvents`);
       const data = await response.json();
+      console.log("Fetched Events:", data.events); // Log the data here
       setEvents(data.events || []);
       setError(null);
     } catch (err) {
@@ -19,6 +20,7 @@ const useEvents = (apiUrl) => {
       setLoading(false);
     }
   };
+  
 
   const createEvent = async (formData) => {
     try {
