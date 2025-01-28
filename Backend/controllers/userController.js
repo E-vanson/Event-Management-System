@@ -107,3 +107,22 @@ export const deleteUser = async (req, res) => {
     });
   }
 }
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      console.log("User Not Found: ");
+      return res.status(400).json({
+        message: `User with id ${id} not found`,
+      });
+    }
+    return res.status(200).json({ user: user });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error Fetching User!!: ",
+      error: error.message,
+    });
+  }
+}

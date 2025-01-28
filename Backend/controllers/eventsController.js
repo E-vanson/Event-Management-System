@@ -70,10 +70,32 @@ export const getEvents = async (req, res) => {
     } catch (error) {
       return res.status(500).json({
         message: "Error Fetching events!!: ",
-        error: err.message,
+        error: error.message,
       });
     }
 }
+
+
+// Function to get an event by its ID
+export const getEventById = async (req, res) => {
+  const { id } = req.params;  // Extract the ID from the request parameters
+
+  try {
+    const event = await Event.findByPk(id);  // Find the event by primary key (ID)
+
+    if (event) {
+      return res.status(200).json({ event });
+    } else {
+      return res.status(404).json({ message: "Event not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error fetching event",
+      error: error.message,
+    });
+  }
+};
+
 
 export const updateEvent = async (req, res) => {
   console.log("The update event controller:....");
@@ -108,7 +130,7 @@ export const updateEvent = async (req, res) => {
     } catch (error) {
       return res.status(500).json({
         message: "Error updating event!!: ",
-        error: err.message,
+        error: error.message,
       });
     }
 }
@@ -129,7 +151,7 @@ export const deleteEvent = async (req, res) => {
     } catch (error) {
       return res.status(500).json({
         message: "Error Deleting Event!!: ",
-        error: err.message,
+        error: error.message,
       });
     }
 }
@@ -187,4 +209,9 @@ export const eventRegistration = async (req,res) => {
     console.error("Error in eventRegistration:", error);
     throw new Error(error.message || "Error during event registration");
   }
+ 
+
+
+
+
 };
